@@ -7,20 +7,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Cyberpunk color palette
+        // Black-based professional palette with aliceblue text
         cyber: {
-          primary: '#FF2A6D',    // Hot Pink
-          secondary: '#05D9E8',  // Cyan
-          accent: '#A663CC',     // Purple
-          neon: '#00FFFF',       // Neon Cyan
-          green: '#00FF00',      // Matrix Green
-          purple: '#8A2BE2',     // Electric Purple
-          pink: '#FF1493',       // Deep Pink
+          primary: '#F0F8FF',    // Alice Blue (main text)
+          secondary: '#E6E6FA',  // Lavender (secondary text)  
+          accent: '#D3D3D3',     // Light Gray (accents)
+          neon: '#C0C0C0',       // Silver (borders)
+          green: '#2F4F4F',      // Dark Slate Gray (minimal accents)
+          blue: '#191970',       // Midnight Blue (links)
+          gray: '#696969',       // Dim Gray (subtle elements)
+          dark: '#1C1C1C',       // Very Dark Gray (almost black)
         },
         background: {
-          dark: '#0A0A0A',
-          card: '#1A1A1A',
-          overlay: 'rgba(0, 255, 255, 0.1)'
+          dark: '#000000',       // Pure Black (main background)
+          card: '#0A0A0A',       // Very Dark (cards)
+          overlay: 'rgba(10, 10, 10, 0.9)', // Dark overlay
+          accent: '#1A1A1A'      // Dark Gray (accents)
         }
       },
       fontFamily: {
@@ -36,8 +38,8 @@ export default {
       },
       keyframes: {
         glow: {
-          '0%': { boxShadow: '0 0 5px rgba(0, 255, 255, 0.5)' },
-          '100%': { boxShadow: '0 0 20px rgba(0, 255, 255, 1)' }
+          '0%': { boxShadow: '0 0 2px rgba(240, 248, 255, 0.3)' },
+          '100%': { boxShadow: '0 0 8px rgba(240, 248, 255, 0.5)' }
         },
         glitch: {
           '0%': { transform: 'translate(0)' },
@@ -61,8 +63,9 @@ export default {
         }
       },
       backgroundImage: {
-        'cyber-gradient': 'linear-gradient(45deg, #FF2A6D, #05D9E8)',
-        'neon-gradient': 'linear-gradient(90deg, #00FFFF, #8A2BE2)',
+        'cyber-gradient': 'linear-gradient(45deg, #1A1A1A, #2F2F2F)',
+        'neon-gradient': 'linear-gradient(90deg, #0A0A0A, #1C1C1C)',
+        'professional-gradient': 'linear-gradient(135deg, #000000, #0A0A0A, #1A1A1A)',
       }
     },
   },

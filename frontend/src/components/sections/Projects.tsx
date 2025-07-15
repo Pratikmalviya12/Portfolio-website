@@ -1,82 +1,24 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Filter, X } from 'lucide-react';
-
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  longDescription?: string;
-  technologies: string[];
-  imageUrl?: string;
-  demoUrl?: string;
-  githubUrl?: string;
-  category: 'frontend' | 'backend' | 'fullstack' | 'mobile' | 'other';
-  featured?: boolean;
-  year: number;
-}
+import { projectsData, type Project } from '../../data';
 
 interface ProjectsProps {
   projects?: Project[];
 }
 
-const defaultProjects: Project[] = [
-  {
-    id: '1',
-    title: 'E-Commerce Platform',
-    description: 'Full-stack e-commerce solution with React and Node.js',
-    longDescription: 'A comprehensive e-commerce platform featuring user authentication, product catalog, shopping cart, payment integration, and admin dashboard.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe', 'JWT'],
-    category: 'fullstack',
-    featured: true,
-    year: 2024,
-    demoUrl: '#',
-    githubUrl: '#'
-  },
-  {
-    id: '2',
-    title: 'Task Management App',
-    description: 'Collaborative task management with real-time updates',
-    longDescription: 'A real-time collaborative task management application with drag-and-drop functionality, team collaboration features, and progress tracking.',
-    technologies: ['React', 'TypeScript', 'Socket.io', 'Express', 'PostgreSQL'],
-    category: 'fullstack',
-    featured: true,
-    year: 2024,
-    demoUrl: '#',
-    githubUrl: '#'
-  },
-  {
-    id: '3',
-    title: 'Weather Dashboard',
-    description: 'Beautiful weather app with location-based forecasts',
-    longDescription: 'A responsive weather dashboard that provides detailed weather information, forecasts, and interactive maps with beautiful visualizations.',
-    technologies: ['React', 'TypeScript', 'Weather API', 'Chart.js'],
-    category: 'frontend',
-    year: 2023,
-    demoUrl: '#',
-    githubUrl: '#'
-  },
-  {
-    id: '4',
-    title: 'API Gateway',
-    description: 'Microservices API gateway with rate limiting',
-    longDescription: 'A robust API gateway service that handles routing, authentication, rate limiting, and monitoring for microservices architecture.',
-    technologies: ['Node.js', 'Express', 'Redis', 'Docker', 'JWT'],
-    category: 'backend',
-    year: 2023,
-    githubUrl: '#'
-  }
-];
-
-export const Projects: React.FC<ProjectsProps> = ({ projects = defaultProjects }) => {
+export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
-  const categories = ['all', ...new Set(projects.map(p => p.category))];
+  // Use props projects if provided, otherwise use data from JSON
+  const projects = propProjects || projectsData.projects;
+
+  const categories = ['all', ...new Set(projects.map(p => p.category.toLowerCase()))];
   
   const filteredProjects = selectedCategory === 'all' 
     ? projects 
-    : projects.filter(p => p.category === selectedCategory);
+    : projects.filter(p => p.category.toLowerCase() === selectedCategory.toLowerCase());
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -102,21 +44,19 @@ export const Projects: React.FC<ProjectsProps> = ({ projects = defaultProjects }
   };
 
   const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
-    <motion.div
-      variants={itemVariants}
-      className="cyberpunk-card group cursor-pointer h-full"
-      whileHover={{ y: -5, scale: 1.02 }}
+    <div
+      className="cyberpunk-card group cursor-pointer w-full flex flex-col"
       onClick={() => setSelectedProject(project)}
     >
-      {project.imageUrl && (
-        <div className="w-full h-48 bg-gradient-to-br from-cyber-primary/20 to-cyber-secondary/20 rounded-lg mb-4 flex items-center justify-center">
+      {(project.images && project.images.length > 0) && (
+        <div className="w-full h-48 bg-gradient-to-br from-cyber-primary/20 to-cyber-secondary/20 rounded-lg mb-4 flex items-center justify-center flex-shrink-0">
           <span className="text-4xl opacity-50">🖼️</span>
         </div>
       )}
       
-      <div className="space-y-4">
+      <div className="flex flex-col flex-grow space-y-4">
         {project.featured && (
-          <span className="inline-block px-2 py-1 text-xs font-semibold bg-cyber-primary text-white rounded-full">
+          <span className="inline-block px-2 py-1 text-xs font-semibold bg-cyber-primary text-black rounded-full w-fit">
             Featured
           </span>
         )}
@@ -125,7 +65,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects = defaultProjects }
           {project.title}
         </h3>
         
-        <p className="text-gray-300 text-sm leading-relaxed">
+        <p className="text-cyber-secondary text-sm leading-relaxed flex-grow">
           {project.description}
         </p>
         
@@ -133,31 +73,31 @@ export const Projects: React.FC<ProjectsProps> = ({ projects = defaultProjects }
           {project.technologies.slice(0, 3).map((tech, index) => (
             <span
               key={index}
-              className="px-2 py-1 text-xs bg-cyber-neon/20 text-cyber-neon rounded border border-cyber-neon/30"
+              className="px-2 py-1 text-xs bg-cyber-accent/20 text-cyber-accent rounded border border-cyber-accent/30"
             >
               {tech}
             </span>
           ))}
           {project.technologies.length > 3 && (
-            <span className="px-2 py-1 text-xs bg-gray-700 text-gray-300 rounded">
+            <span className="px-2 py-1 text-xs bg-background-accent text-cyber-accent rounded">
               +{project.technologies.length - 3} more
             </span>
           )}
         </div>
         
-        <div className="flex items-center justify-between pt-4 border-t border-cyber-neon/20">
+        <div className="flex items-center justify-between pt-4 border-t border-cyber-accent/20 mt-auto">
           <span className="text-sm text-cyber-secondary font-mono">{project.year}</span>
           <div className="flex space-x-2">
             {project.demoUrl && (
-              <ExternalLink className="w-4 h-4 text-cyber-neon hover:text-cyber-primary transition-colors" />
+              <ExternalLink className="w-4 h-4 text-cyber-accent hover:text-cyber-primary transition-colors" />
             )}
             {project.githubUrl && (
-              <Github className="w-4 h-4 text-cyber-neon hover:text-cyber-primary transition-colors" />
+              <Github className="w-4 h-4 text-cyber-accent hover:text-cyber-primary transition-colors" />
             )}
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 
   return (
@@ -181,7 +121,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects = defaultProjects }
               <h2 className="text-4xl md:text-5xl font-bold text-cyber-primary mb-4 glitch-text" data-text="Projects">
                 Projects
               </h2>
-              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              <p className="text-xl text-cyber-secondary max-w-2xl mx-auto">
                 A showcase of my work and technical capabilities
               </p>
               <div className="w-24 h-1 bg-gradient-to-r from-cyber-primary to-cyber-secondary mx-auto mt-4 rounded-full"></div>
@@ -195,20 +135,26 @@ export const Projects: React.FC<ProjectsProps> = ({ projects = defaultProjects }
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex flex-wrap justify-center gap-4 mb-12"
             >
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full font-mono text-sm transition-all duration-300 ${
-                    selectedCategory === category
-                      ? 'bg-cyber-primary text-white shadow-lg shadow-cyber-primary/50'
-                      : 'bg-background-card text-gray-300 hover:bg-cyber-neon/20 hover:text-cyber-neon'
-                  }`}
-                >
-                  <Filter className="w-4 h-4 inline mr-2" />
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </button>
-              ))}
+              {categories.map((category) => {
+                const count = category === 'all' 
+                  ? projects.length 
+                  : projects.filter(p => p.category.toLowerCase() === category.toLowerCase()).length;
+                
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded-full font-mono text-sm transition-all duration-300 border ${
+                      selectedCategory === category
+                        ? 'bg-cyber-primary text-black border-cyber-primary'
+                        : 'bg-background-card text-cyber-primary border-cyber-accent hover:bg-background-accent hover:border-cyber-secondary'
+                    }`}
+                  >
+                    <Filter className="w-4 h-4 inline mr-2" />
+                    {category.charAt(0).toUpperCase() + category.slice(1)} ({count})
+                  </button>
+                );
+              })}
             </motion.div>
 
             {/* Projects Grid */}
@@ -217,12 +163,35 @@ export const Projects: React.FC<ProjectsProps> = ({ projects = defaultProjects }
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.1 }}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="flex flex-wrap justify-center gap-8 min-h-[400px]"
             >
-              <AnimatePresence mode="wait">
-                {filteredProjects.map((project) => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
+              <AnimatePresence>
+                {filteredProjects.length > 0 ? (
+                  filteredProjects.map((project) => (
+                    <motion.div
+                      key={`${selectedCategory}-${project.id}`}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      layout
+                      transition={{ duration: 0.3 }}
+                      className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.33rem)] flex"
+                    >
+                      <ProjectCard project={project} />
+                    </motion.div>
+                  ))
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="w-full text-center py-12"
+                  >
+                    <p className="text-cyber-accent text-lg">
+                      No projects found in this category
+                    </p>
+                  </motion.div>
+                )}
               </AnimatePresence>
             </motion.div>
           </motion.div>

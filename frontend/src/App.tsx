@@ -1,25 +1,19 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Header, Footer } from './components/ui';
-import { Hero, About, Projects, Skills, Experience, Contact } from './components/sections';
-import { MatrixBackground } from './components/effects';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HomePage, AboutPage, SkillsPage, ProjectsPage, ExperiencePage } from './pages';
+import { ScrollToTop } from './components/ui/ScrollToTop';
 
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="min-h-screen bg-background-dark text-white relative overflow-hidden">
-        <MatrixBackground />
-        <Header />
-        <main className="relative z-10">
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/skills" element={<SkillsPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/experience" element={<ExperiencePage />} />
+      </Routes>
     </Router>
   );
 };

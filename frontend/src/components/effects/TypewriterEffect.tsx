@@ -1,4 +1,3 @@
-// src/components/effects/TypewriterEffect.tsx
 import React, { useState, useEffect } from 'react';
 import { prefersReducedMotion } from '../../utils';
 
@@ -13,7 +12,7 @@ interface TypewriterEffectProps {
 
 export const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
   text,
-  speed = 100,
+  speed = 80,
   className = '',
   onComplete,
   startDelay = 0,
@@ -22,6 +21,7 @@ export const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
     // If user prefers reduced motion, show text immediately
@@ -32,22 +32,28 @@ export const TypewriterEffect: React.FC<TypewriterEffectProps> = ({
       return;
     }
 
-    const startTimeout = setTimeout(() => {
-      if (currentIndex < text.length) {
-        const timeout = setTimeout(() => {
-          setDisplayText(prev => prev + text[currentIndex]);
-          setCurrentIndex(prev => prev + 1);
-        }, speed);
+    // Initial start delay only happens once
+    if (!hasStarted) {
+      const startTimeout = setTimeout(() => {
+        setHasStarted(true);
+      }, startDelay);
+      
+      return () => clearTimeout(startTimeout);
+    }
 
-        return () => clearTimeout(timeout);
-      } else if (!isComplete) {
-        setIsComplete(true);
-        if (onComplete) onComplete();
-      }
-    }, startDelay);
+    // After start delay, handle character typing with speed interval
+    if (hasStarted && currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayText(prev => prev + text[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, speed);
 
-    return () => clearTimeout(startTimeout);
-  }, [currentIndex, text, speed, onComplete, startDelay, isComplete]);
+      return () => clearTimeout(timeout);
+    } else if (hasStarted && currentIndex >= text.length && !isComplete) {
+      setIsComplete(true);
+      if (onComplete) onComplete();
+    }
+  }, [currentIndex, text, speed, onComplete, startDelay, isComplete, hasStarted]);
 
   return (
     <span className={className}>

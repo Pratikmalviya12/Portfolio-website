@@ -1,0 +1,159 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "title": "E-Commerce Platform",
+      "description": "Full-stack e-commerce solution with React and Node.js",
+      "longDescription": "A comprehensive e-commerce platform featuring user authentication, product catalog, shopping cart, payment integration, and admin dashboard. Built with modern technologies and best practices for scalability and performance.",
+      "technologies": ["React", "Node.js", "MongoDB", "Stripe", "JWT"],
+      "category": "fullstack",
+      "featured": true,
+      "year": 2024,
+      "status": "completed",
+      "demoUrl": "https://demo-ecommerce.example.com",
+      "githubUrl": "https://github.com/yourusername/ecommerce-platform",
+      "images": [
+        "/images/projects/ecommerce-1.jpg",
+        "/images/projects/ecommerce-2.jpg"
+      ],
+      "features": [
+        "User authentication and authorization",
+        "Product catalog with search and filters",
+        "Shopping cart and wishlist",
+        "Payment integration with Stripe",
+        "Admin dashboard for inventory management",
+        "Responsive design for all devices"
+      ],
+      "challenges": [
+        "Implementing real-time inventory updates",
+        "Optimizing performance for large product catalogs",
+        "Ensuring secure payment processing"
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Task Management App",
+      "description": "Collaborative task management with real-time updates",
+      "longDescription": "A real-time collaborative task management application with drag-and-drop functionality, team collaboration features, and progress tracking. Perfect for agile teams and project management.",
+      "technologies": ["React", "TypeScript", "Socket.io", "Express", "PostgreSQL"],
+      "category": "fullstack",
+      "featured": true,
+      "year": 2024,
+      "status": "completed",
+      "demoUrl": "https://demo-taskmanager.example.com",
+      "githubUrl": "https://github.com/yourusername/task-manager",
+      "images": [
+        "/images/projects/taskmanager-1.jpg",
+        "/images/projects/taskmanager-2.jpg"
+      ],
+      "features": [
+        "Real-time collaboration with Socket.io",
+        "Drag-and-drop task organization",
+        "Team management and permissions",
+        "Progress tracking and analytics",
+        "Notification system",
+        "Mobile-responsive interface"
+      ],
+      "challenges": [
+        "Implementing real-time synchronization",
+        "Managing complex state with multiple users",
+        "Optimizing WebSocket connections"
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Weather Dashboard",
+      "description": "Beautiful weather app with location-based forecasts",
+      "longDescription": "A responsive weather dashboard that provides detailed weather information, forecasts, and interactive maps with beautiful visualizations. Features location-based weather data and detailed analytics.",
+      "technologies": ["React", "TypeScript", "Weather API", "Chart.js"],
+      "category": "frontend",
+      "featured": false,
+      "year": 2023,
+      "status": "completed",
+      "demoUrl": "https://demo-weather.example.com",
+      "githubUrl": "https://github.com/yourusername/weather-dashboard",
+      "images": [
+        "/images/projects/weather-1.jpg"
+      ],
+      "features": [
+        "Location-based weather data",
+        "7-day weather forecast",
+        "Interactive weather maps",
+        "Beautiful data visualizations",
+        "Responsive design",
+        "PWA capabilities"
+      ],
+      "challenges": [
+        "Handling API rate limits",
+        "Creating intuitive data visualizations",
+        "Implementing geolocation features"
+      ]
+    },
+    {
+      "id": "4",
+      "title": "API Gateway",
+      "description": "Microservices API gateway with rate limiting",
+      "longDescription": "A robust API gateway service that handles routing, authentication, rate limiting, and monitoring for microservices architecture. Built for high availability and scalability.",
+      "technologies": ["Node.js", "Express", "Redis", "Docker", "JWT"],
+      "category": "backend",
+      "featured": false,
+      "year": 2023,
+      "status": "completed",
+      "demoUrl": null,
+      "githubUrl": "https://github.com/yourusername/api-gateway",
+      "images": [
+        "/images/projects/api-gateway-1.jpg"
+      ],
+      "features": [
+        "Request routing and load balancing",
+        "Authentication and authorization",
+        "Rate limiting and throttling",
+        "Request/response logging",
+        "Health monitoring",
+        "Docker containerization"
+      ],
+      "challenges": [
+        "Implementing efficient rate limiting",
+        "Managing service discovery",
+        "Ensuring high availability"
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "all",
+      "name": "All Projects",
+      "description": "View all projects"
+    },
+    {
+      "id": "fullstack",
+      "name": "Full Stack",
+      "description": "Complete web applications with frontend and backend"
+    },
+    {
+      "id": "frontend",
+      "name": "Frontend",
+      "description": "User interface and client-side applications"
+    },
+    {
+      "id": "backend",
+      "name": "Backend",
+      "description": "Server-side applications and APIs"
+    }
+  ],
+  "technologies": [
+    "React",
+    "TypeScript",
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "PostgreSQL",
+    "Socket.io",
+    "Docker",
+    "AWS",
+    "Stripe",
+    "JWT",
+    "Chart.js",
+    "Redis"
+  ]
+}

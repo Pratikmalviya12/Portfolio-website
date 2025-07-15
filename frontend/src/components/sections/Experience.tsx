@@ -1,76 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, ExternalLink } from 'lucide-react';
-
-interface Experience {
-  id: string;
-  company: string;
-  position: string;
-  startDate: string;
-  endDate?: string;
-  description: string;
-  technologies: string[];
-  achievements?: string[];
-  companyUrl?: string;
-  location?: string;
-}
+import { experienceData, type Experience } from '../../data';
 
 interface ExperienceProps {
   experiences?: Experience[];
 }
 
-const defaultExperiences: Experience[] = [
-  {
-    id: '1',
-    company: 'Tech Innovations Inc.',
-    position: 'Senior Full Stack Developer',
-    startDate: '2023-01',
-    endDate: 'Present',
-    location: 'Remote',
-    description: 'Lead development of scalable web applications using modern technologies. Mentor junior developers and collaborate with cross-functional teams.',
-    technologies: ['React', 'TypeScript', 'Node.js', 'AWS', 'Docker'],
-    achievements: [
-      'Increased application performance by 40%',
-      'Led team of 5 developers',
-      'Implemented CI/CD pipeline reducing deployment time by 60%'
-    ],
-    companyUrl: '#'
-  },
-  {
-    id: '2',
-    company: 'Digital Solutions Ltd.',
-    position: 'Full Stack Developer',
-    startDate: '2022-01',
-    endDate: '2022-12',
-    location: 'New York, NY',
-    description: 'Developed and maintained multiple client projects using React, Node.js, and various databases. Collaborated with designers and product managers.',
-    technologies: ['React', 'JavaScript', 'Express', 'MongoDB', 'PostgreSQL'],
-    achievements: [
-      'Delivered 15+ projects on time',
-      'Improved code quality through testing',
-      'Mentored 2 junior developers'
-    ],
-    companyUrl: '#'
-  },
-  {
-    id: '3',
-    company: 'StartupXYZ',
-    position: 'Frontend Developer',
-    startDate: '2021-06',
-    endDate: '2021-12',
-    location: 'San Francisco, CA',
-    description: 'Built responsive user interfaces and implemented interactive features for a fast-growing startup. Worked closely with UX/UI designers.',
-    technologies: ['React', 'JavaScript', 'CSS3', 'HTML5', 'Figma'],
-    achievements: [
-      'Developed mobile-first responsive designs',
-      'Implemented accessibility features',
-      'Reduced bundle size by 30%'
-    ],
-    companyUrl: '#'
-  }
-];
-
-export const Experience: React.FC<ExperienceProps> = ({ experiences = defaultExperiences }) => {
+export const ExperienceSection: React.FC<ExperienceProps> = ({ experiences: propExperiences }) => {
+  // Use props experiences if provided, otherwise use data from JSON
+  const experiences = propExperiences || experienceData.experiences;
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

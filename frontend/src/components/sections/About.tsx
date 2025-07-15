@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { User, Download, MapPin, Mail } from 'lucide-react';
 import { Card } from '../ui/Card';
+import { portfolioData } from '../../data';
 
 interface AboutProps {
   name?: string;
@@ -13,13 +14,21 @@ interface AboutProps {
 }
 
 export const About: React.FC<AboutProps> = ({
-  name = "Your Name",
-  title = "Full Stack Developer",
-  description = "Passionate developer with expertise in modern web technologies. I love creating innovative solutions and bringing ideas to life through code.",
-  email = "your.email@example.com",
-  location = "Your City, Country",
-  resumeUrl = "#"
+  name: propName,
+  title: propTitle,
+  description: propDescription,
+  email: propEmail,
+  location: propLocation,
+  resumeUrl: propResumeUrl
 }) => {
+  // Use props or data from portfolio
+  const name = propName || portfolioData.personal.name;
+  const title = propTitle || portfolioData.personal.title;
+  const description = propDescription || portfolioData.personal.bio;
+  const email = propEmail || portfolioData.personal.email;
+  const location = propLocation || portfolioData.personal.location;
+  const resumeUrl = propResumeUrl || portfolioData.personal.resume || "#";
+  const stats = portfolioData.stats;
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -134,19 +143,19 @@ export const About: React.FC<AboutProps> = ({
               {/* Quick Stats */}
               <div className="grid grid-cols-3 gap-4">
                 <Card
-                  title="3+"
+                  title={stats.yearsExperience}
                   content="Years Experience"
                   className="text-center p-4"
                   variant="cyberpunk"
                 />
                 <Card
-                  title="50+"
+                  title={stats.projectsCompleted}
                   content="Projects Completed"
                   className="text-center p-4"
                   variant="cyberpunk"
                 />
                 <Card
-                  title="100%"
+                  title={stats.clientSatisfaction}
                   content="Client Satisfaction"
                   className="text-center p-4"
                   variant="cyberpunk"

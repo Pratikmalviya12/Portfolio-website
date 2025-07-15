@@ -24,7 +24,7 @@ export default defineConfig({
     __BUILD_TIME__: JSON.stringify(new Date().toISOString())
   },
   server: {
-    port: 3000,
+    port: 5400,
     open: true
   },
   build: {

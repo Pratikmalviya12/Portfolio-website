@@ -1,30 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '../ui/Card';
-
-interface Skill {
-  name: string;
-  level: number;
-  category: string;
-  icon?: string;
-}
+import { skillsData, type Skill } from '../../data';
 
 interface SkillsProps {
   skills?: Skill[];
 }
 
-const defaultSkills: Skill[] = [
-  { name: 'React', level: 90, category: 'Frontend', icon: '⚛️' },
-  { name: 'TypeScript', level: 85, category: 'Frontend', icon: '📘' },
-  { name: 'Node.js', level: 80, category: 'Backend', icon: '🟢' },
-  { name: 'Python', level: 75, category: 'Backend', icon: '🐍' },
-  { name: 'AWS', level: 70, category: 'DevOps', icon: '☁️' },
-  { name: 'Docker', level: 75, category: 'DevOps', icon: '🐳' },
-  { name: 'PostgreSQL', level: 80, category: 'Database', icon: '🐘' },
-  { name: 'MongoDB', level: 75, category: 'Database', icon: '🍃' },
-];
-
-export const Skills: React.FC<SkillsProps> = ({ skills = defaultSkills }) => {
+export const Skills: React.FC<SkillsProps> = ({ skills: propSkills }) => {
+  // Use props skills if provided, otherwise use data from JSON
+  const skills = propSkills || skillsData.skills;
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -53,40 +38,42 @@ export const Skills: React.FC<SkillsProps> = ({ skills = defaultSkills }) => {
   const SkillBar: React.FC<{ skill: Skill }> = ({ skill }) => (
     <motion.div
       variants={itemVariants}
-      className="cyberpunk-card p-4"
+      className="cyberpunk-card p-4 sm:p-6 min-w-[250px] sm:min-w-[280px] max-w-[320px] flex-1 w-full sm:w-auto"
       whileHover={{ scale: 1.02, y: -2 }}
     >
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center">
-          {skill.icon && <span className="text-2xl mr-3">{skill.icon}</span>}
-          <span className="font-semibold text-cyber-primary">{skill.name}</span>
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className="flex items-center flex-1 min-w-0">
+          {skill.icon && <span className="text-2xl sm:text-3xl mr-2 sm:mr-3 flex-shrink-0">{skill.icon}</span>}
+          <span className="font-semibold text-cyber-primary text-base sm:text-lg truncate">{skill.name}</span>
         </div>
-        <span className="text-cyber-secondary font-mono">{skill.level}%</span>
+        <span className="text-cyber-secondary font-mono text-base sm:text-lg font-bold ml-2 flex-shrink-0">{skill.level}%</span>
       </div>
       
       <div className="relative">
-        <div className="w-full bg-gray-700 rounded-full h-2">
+        <div className="w-full bg-gray-700/50 rounded-full h-2.5 sm:h-3 overflow-hidden">
           <motion.div
-            className="bg-gradient-to-r from-cyber-primary to-cyber-secondary h-2 rounded-full"
+            className="bg-gradient-to-r from-cyber-primary to-cyber-secondary h-full rounded-full relative"
             initial={{ width: 0 }}
             whileInView={{ width: `${skill.level}%` }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
             viewport={{ once: true }}
-          />
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+          </motion.div>
         </div>
-        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyber-neon/20 to-transparent rounded-full animate-pulse-neon" />
+        <div className="absolute top-0 left-0 w-full h-2.5 sm:h-3 bg-gradient-to-r from-cyber-neon/10 to-transparent rounded-full" />
       </div>
     </motion.div>
   );
 
   return (
     <section id="skills" className="py-20 relative">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="max-w-6xl mx-auto"
+          className="max-w-7xl mx-auto"
         >
           {/* Section Header */}
           <motion.div
@@ -115,10 +102,10 @@ export const Skills: React.FC<SkillsProps> = ({ skills = defaultSkills }) => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
               >
-                <h3 className="text-2xl font-semibold text-cyber-secondary mb-6 text-center">
+                <h3 className="text-xl sm:text-2xl font-semibold text-cyber-secondary mb-6 sm:mb-8 text-center">
                   {category}
                 </h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-6 max-w-6xl mx-auto">
                   {skills
                     .filter(skill => skill.category === category)
                     .map((skill, index) => (

@@ -1,4 +1,3 @@
-// src/components/effects/ParticleSystem.tsx
 import React, { useEffect, useRef, useCallback } from 'react';
 import { useMousePosition } from '../../hooks';
 import { prefersReducedMotion } from '../../utils';

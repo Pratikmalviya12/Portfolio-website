@@ -29,13 +29,13 @@ export const Button: React.FC<ButtonProps> = ({
   target,
   rel
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-mono font-semibold uppercase tracking-wider transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyber-neon focus:ring-offset-2 focus:ring-offset-background-dark disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = 'inline-flex items-center justify-center font-mono font-medium uppercase tracking-wider transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyber-accent focus:ring-offset-2 focus:ring-offset-background-dark disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variantClasses = {
-    primary: 'cyberpunk-button bg-gradient-to-r from-cyber-primary to-cyber-secondary border-2 border-cyber-neon text-white hover:shadow-lg hover:shadow-cyber-neon/50 hover:-translate-y-1',
-    secondary: 'bg-cyber-secondary text-background-dark border-2 border-cyber-secondary hover:bg-cyber-secondary/80',
-    outline: 'border-2 border-cyber-neon text-cyber-neon bg-transparent hover:bg-cyber-neon hover:text-background-dark',
-    ghost: 'text-cyber-neon hover:bg-cyber-neon/10 border-2 border-transparent hover:border-cyber-neon/30'
+    primary: 'bg-cyber-primary text-black border-2 border-cyber-primary hover:bg-cyber-secondary hover:border-cyber-secondary hover:-translate-y-1',
+    secondary: 'bg-cyber-secondary text-black border-2 border-cyber-secondary hover:bg-cyber-accent hover:border-cyber-accent',
+    outline: 'border-2 border-cyber-primary text-cyber-primary bg-transparent hover:bg-cyber-primary hover:text-black',
+    ghost: 'text-cyber-primary hover:bg-cyber-primary/10 border-2 border-transparent hover:border-cyber-primary/30'
   };
 
   const sizeClasses = {

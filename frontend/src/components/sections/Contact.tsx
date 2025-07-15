@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { portfolioData } from '../../data';
 
 interface ContactForm {
   name: string;
@@ -9,46 +10,16 @@ interface ContactForm {
   message: string;
 }
 
-interface SocialLink {
-  platform: string;
-  url: string;
-  icon: React.ReactNode;
-  username?: string;
-}
-
 interface ContactProps {
   email?: string;
   phone?: string;
   location?: string;
-  socialLinks?: SocialLink[];
 }
 
-const defaultSocialLinks: SocialLink[] = [
-  {
-    platform: 'GitHub',
-    url: 'https://github.com/yourusername',
-    icon: <Github className="w-5 h-5" />,
-    username: '@yourusername'
-  },
-  {
-    platform: 'LinkedIn',
-    url: 'https://linkedin.com/in/yourusername',
-    icon: <Linkedin className="w-5 h-5" />,
-    username: '/in/yourusername'
-  },
-  {
-    platform: 'Twitter',
-    url: 'https://twitter.com/yourusername',
-    icon: <Twitter className="w-5 h-5" />,
-    username: '@yourusername'
-  }
-];
-
 export const Contact: React.FC<ContactProps> = ({
-  email = 'your.email@example.com',
-  phone = '+1 (555) 123-4567',
-  location = 'Your City, Country',
-  socialLinks = defaultSocialLinks
+  email: propEmail,
+  phone: propPhone,
+  location: propLocation
 }) => {
   const [formData, setFormData] = useState<ContactForm>({
     name: '',
@@ -58,6 +29,26 @@ export const Contact: React.FC<ContactProps> = ({
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  // Use props or data from portfolio
+  const email = propEmail || portfolioData.personal.email;
+  const phone = propPhone || portfolioData.personal.phone;
+  const location = propLocation || portfolioData.personal.location;
+  const socialLinks = portfolioData.socialLinks;
+
+  // Function to get icon based on iconType
+  const getIcon = (iconType: string) => {
+    switch (iconType.toLowerCase()) {
+      case 'github':
+        return <Github className="w-5 h-5" />;
+      case 'linkedin':
+        return <Linkedin className="w-5 h-5" />;
+      case 'twitter':
+        return <Twitter className="w-5 h-5" />;
+      default:
+        return <Mail className="w-5 h-5" />;
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -71,9 +62,9 @@ export const Contact: React.FC<ContactProps> = ({
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 1000));
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
@@ -185,7 +176,7 @@ export const Contact: React.FC<ContactProps> = ({
                       whileHover={{ scale: 1.02, x: 5 }}
                     >
                       <div className="text-cyber-neon group-hover:text-cyber-primary transition-colors">
-                        {link.icon}
+                        {getIcon(link.iconType)}
                       </div>
                       <div className="ml-4">
                         <p className="font-semibold text-white group-hover:text-cyber-primary transition-colors">

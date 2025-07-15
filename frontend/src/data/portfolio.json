@@ -1,0 +1,38 @@
+{
+  "personal": {
+    "name": "Pratik Kumar Malviya",
+    "title": "Full Stack Developer",
+    "description": "Crafting the future of web development with cutting-edge technologies and cyberpunk aesthetics.",
+    "email": "pratik.malviya@example.com",
+    "phone": "+91 98765 43210",
+    "location": "India",
+    "bio": "I'm a passionate full-stack developer with expertise in modern web technologies. I love creating innovative solutions that push the boundaries of what's possible on the web.",
+    "profileImage": "/images/profile.jpg",
+    "resume": "/documents/resume.pdf"
+  },
+  "stats": {
+    "yearsExperience": "3+",
+    "projectsCompleted": "50+",
+    "clientSatisfaction": "100%"
+  },
+  "socialLinks": [
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/Pratikmalviya12",
+      "username": "@Pratikmalviya12",
+      "iconType": "github"
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/in/pratikmalviya",
+      "username": "/in/pratikmalviya",
+      "iconType": "linkedin"
+    },
+    {
+      "platform": "Twitter",
+      "url": "https://twitter.com/pratikmalviya",
+      "username": "@pratikmalviya",
+      "iconType": "twitter"
+    }
+  ]
+}

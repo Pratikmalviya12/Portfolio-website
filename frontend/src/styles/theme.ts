@@ -2,27 +2,28 @@
 export const cyberpunkTheme = {
   colors: {
     primary: {
-      50: '#FF69B4',
-      100: '#FF1493',
-      500: '#FF2A6D',
-      900: '#8B0A3E'
+      50: '#F0F8FF',  // Alice Blue
+      100: '#E6E6FA', // Lavender
+      500: '#D3D3D3', // Light Gray
+      900: '#C0C0C0'  // Silver
     },
     secondary: {
-      50: '#7FFFD4',
-      100: '#40E0D0',
-      500: '#05D9E8',
-      900: '#008B8B'
+      50: '#E6E6FA',  // Lavender
+      100: '#D3D3D3', // Light Gray
+      500: '#C0C0C0', // Silver
+      900: '#A9A9A9'  // Dark Gray
     },
     accent: {
-      neon: '#00FFFF',
-      purple: '#8A2BE2',
-      green: '#00FF00',
-      pink: '#FF1493'
+      professional: '#696969', // Dim Gray
+      blue: '#191970',         // Midnight Blue
+      green: '#2F4F4F',        // Dark Slate Gray
+      gray: '#808080'          // Gray
     },
     background: {
-      dark: '#0A0A0A',
-      card: '#1A1A1A',
-      overlay: 'rgba(0, 255, 255, 0.1)'
+      dark: '#000000',         // Pure Black
+      card: '#0A0A0A',         // Very Dark
+      overlay: 'rgba(10, 10, 10, 0.9)',
+      accent: '#1A1A1A'        // Dark Gray
     }
   },
   spacing: {

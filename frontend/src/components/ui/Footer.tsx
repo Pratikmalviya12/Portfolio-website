@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface SocialLink {
   platform: string;
@@ -58,7 +59,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative py-12 border-t border-cyber-neon/20">
+    <footer className="relative py-12 border-t border-cyber-primary/20">
       <div className="container mx-auto px-6">
         <motion.div
           variants={containerVariants}
@@ -76,7 +77,7 @@ export const Footer: React.FC = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-background-card border border-cyber-neon/30 text-cyber-neon hover:text-cyber-primary hover:border-cyber-primary hover:shadow-lg hover:shadow-cyber-primary/20 transition-all duration-300"
+                  className="p-3 rounded-full bg-cyber-primary/10 border border-cyber-primary/30 text-cyber-primary hover:text-black hover:bg-cyber-primary hover:border-cyber-primary hover:shadow-lg hover:shadow-cyber-primary/20 transition-all duration-300"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={`Visit my ${link.platform}`}
@@ -91,27 +92,27 @@ export const Footer: React.FC = () => {
           <motion.div variants={itemVariants} className="text-center mb-8">
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               {[
-                { label: 'Home', href: '#hero' },
-                { label: 'About', href: '#about' },
-                { label: 'Skills', href: '#skills' },
-                { label: 'Projects', href: '#projects' },
-                { label: 'Experience', href: '#experience' },
+                { label: 'Home', href: '/' },
+                { label: 'About', href: '/about' },
+                { label: 'Skills', href: '/skills' },
+                { label: 'Projects', href: '/projects' },
+                { label: 'Experience', href: '/experience' },
                 { label: 'Contact', href: '#contact' }
               ].map((link, index) => (
-                <a
+                <Link
                   key={index}
-                  href={link.href}
-                  className="text-gray-400 hover:text-cyber-neon transition-colors duration-300 font-mono"
-                  onClick={(e) => {
+                  to={link.href.startsWith('#') ? '#contact' : link.href}
+                  className="text-cyber-primary hover:text-black hover:bg-cyber-primary/20 px-3 py-1 rounded-lg transition-all duration-300 font-mono"
+                  onClick={link.href === '#contact' ? (e) => {
                     e.preventDefault();
-                    const element = document.querySelector(link.href);
+                    const element = document.querySelector('#contact');
                     if (element) {
                       element.scrollIntoView({ behavior: 'smooth' });
                     }
-                  }}
+                  } : undefined}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>
@@ -119,17 +120,17 @@ export const Footer: React.FC = () => {
           {/* Divider */}
           <motion.div 
             variants={itemVariants}
-            className="w-full h-px bg-gradient-to-r from-transparent via-cyber-neon/50 to-transparent mb-8"
+            className="w-full h-px bg-gradient-to-r from-transparent via-cyber-primary/50 to-transparent mb-8"
           />
 
           {/* Copyright */}
           <motion.div variants={itemVariants} className="text-center">
-            <p className="text-gray-400 text-sm font-mono flex items-center justify-center gap-2">
+            <p className="text-cyber-primary text-sm font-mono flex items-center justify-center gap-2">
               <span>&copy; {currentYear} Portfolio. Made with</span>
               <Heart className="w-4 h-4 text-cyber-primary animate-pulse" />
               <span>by Developer</span>
             </p>
-            <p className="text-gray-500 text-xs mt-2 font-mono">
+            <p className="text-cyber-primary/70 text-xs mt-2 font-mono">
               Built with React, TypeScript, Tailwind CSS & Framer Motion
             </p>
           </motion.div>
@@ -138,7 +139,7 @@ export const Footer: React.FC = () => {
           <motion.button
             variants={itemVariants}
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="mt-8 mx-auto block cyberpunk-button text-sm py-2 px-4"
+            className="mt-8 mx-auto block bg-cyber-primary text-black hover:bg-cyber-primary/80 transition-colors duration-300 text-sm py-2 px-4 rounded-lg font-mono"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

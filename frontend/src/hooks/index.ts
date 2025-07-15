@@ -267,3 +267,6 @@ export const useAnimationControls = () => {
     adjustSpeed
   };
 };
+
+// Export scroll-to-top hook
+export { useScrollToTop } from './useScrollToTop';

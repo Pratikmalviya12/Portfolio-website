@@ -15,8 +15,8 @@ html {
 
 body {
   font-family: 'Fira Code', monospace;
-  background-color: #0A0A0A;
-  color: #FFFFFF;
+  background-color: #000000;
+  color: #F0F8FF;
   overflow-x: hidden;
   line-height: 1.6;
 }
@@ -27,33 +27,38 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1A1A1A;
+  background: #0A0A0A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00FFFF;
+  background: #696969;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #05D9E8;
+  background: #808080;
 }
 
-/* Cyberpunk utility classes */
+/* Professional button styling */
 .cyberpunk-button {
-  @apply bg-gradient-to-r from-cyber-primary to-cyber-secondary;
-  @apply border-2 border-cyber-neon;
-  @apply text-white font-mono font-semibold;
-  @apply px-6 py-3 uppercase tracking-wider;
-  @apply transition-all duration-300 ease-in-out;
-  @apply hover:shadow-lg hover:shadow-cyber-neon/50;
-  @apply hover:-translate-y-1;
-  @apply relative overflow-hidden;
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  background-color: #0A0A0A;
+  border: 1px solid #696969;
+  color: #F0F8FF;
+  font-family: 'Fira Code', monospace;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
 }
 
 .cyberpunk-button:hover {
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+  background-color: #1A1A1A;
+  border-color: #808080;
+  transform: translateY(-1px);
 }
 
 .cyberpunk-button::before {
@@ -63,7 +68,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(240, 248, 255, 0.1), transparent);
   transition: left 0.5s;
 }
 
@@ -72,11 +77,19 @@ body {
 }
 
 .cyberpunk-card {
-  @apply bg-background-card border border-cyber-neon/30;
-  @apply rounded-lg p-6 backdrop-blur-sm;
-  @apply transition-all duration-300;
-  @apply hover:border-cyber-neon/60 hover:shadow-lg hover:shadow-cyber-neon/20;
-  @apply relative overflow-hidden;
+  background-color: #0A0A0A;
+  border: 1px solid rgba(105, 105, 105, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyberpunk-card:hover {
+  border-color: rgba(105, 105, 105, 0.6);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .cyberpunk-card::before {
@@ -86,25 +99,23 @@ body {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #00FFFF, transparent);
+  background: linear-gradient(90deg, transparent, #696969, transparent);
   opacity: 0;
   transition: opacity 0.3s;
 }
 
 .cyberpunk-card:hover::before {
-  opacity: 1;
+  opacity: 0.5;
 }
 
-.cyberpunk-text-glow {
-  text-shadow: 0 0 10px currentColor;
-}
+/* Removed glow effects for professional appearance */
 
 .cyberpunk-border-glow {
-  border-color: theme('colors.cyber.neon');
-  box-shadow: 0 0 10px theme('colors.cyber.neon');
+  border-color: #696969;
+  /* Removed glow for professional look */
 }
 
-/* Glitch effect */
+/* Subtle text effect (reduced for professional look) */
 .glitch-text {
   position: relative;
   display: inline-block;
@@ -118,18 +129,17 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.8;
+  opacity: 0.1;
+  animation: none; /* Disabled for professional look */
 }
 
 .glitch-text::before {
-  animation: glitch-1 0.5s infinite;
-  color: #ff0000;
+  color: #696969;
   z-index: -1;
 }
 
 .glitch-text::after {
-  animation: glitch-2 0.5s infinite;
-  color: #00ffff;
+  color: #808080;
   z-index: -2;
 }
 
@@ -151,27 +161,9 @@ body {
   }
 }
 
-/* Neon glow animation */
-@keyframes neon-glow {
-  0%, 100% {
-    text-shadow: 
-      0 0 5px currentColor,
-      0 0 10px currentColor,
-      0 0 15px currentColor;
-  }
-  50% {
-    text-shadow: 
-      0 0 2px currentColor,
-      0 0 5px currentColor,
-      0 0 8px currentColor;
-  }
-}
+/* Neon glow animation - disabled for professional look */
 
-.neon-glow {
-  animation: neon-glow 2s ease-in-out infinite alternate;
-}
-
-/* Scanline effect */
+/* Subtle scanline effect */
 .scanlines {
   position: relative;
 }
@@ -187,16 +179,16 @@ body {
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 255, 255, 0.03) 2px,
-    rgba(0, 255, 255, 0.03) 4px
+    rgba(105, 105, 105, 0.01) 2px,
+    rgba(105, 105, 105, 0.01) 4px
   );
   pointer-events: none;
 }
 
-/* Circuit board pattern */
+/* Circuit board pattern - subtle */
 .circuit-pattern {
   background-image: 
-    radial-gradient(circle at 1px 1px, rgba(0, 255, 255, 0.1) 1px, transparent 0);
+    radial-gradient(circle at 1px 1px, rgba(105, 105, 105, 0.05) 1px, transparent 0);
   background-size: 20px 20px;
 }
 
@@ -288,4 +280,18 @@ textarea:focus-visible {
   .glitch-text::after {
     opacity: 0.5;
   }
+}
+
+/* Shimmer animation for skill bars */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
 }

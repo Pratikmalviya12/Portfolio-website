@@ -1,0 +1,90 @@
+{
+  "skills": [
+    {
+      "id": "1",
+      "name": "React",
+      "level": 90,
+      "category": "Frontend",
+      "icon": "⚛️",
+      "description": "Advanced knowledge in React development with hooks, context, and performance optimization"
+    },
+    {
+      "id": "2", 
+      "name": "TypeScript",
+      "level": 85,
+      "category": "Frontend",
+      "icon": "📘",
+      "description": "Strong typing and advanced TypeScript patterns for scalable applications"
+    },
+    {
+      "id": "3",
+      "name": "Node.js",
+      "level": 80,
+      "category": "Backend",
+      "icon": "🟢",
+      "description": "Server-side JavaScript development with Express, APIs, and microservices"
+    },
+    {
+      "id": "4",
+      "name": "Python",
+      "level": 75,
+      "category": "Backend",
+      "icon": "🐍",
+      "description": "Backend development with Django, Flask, and data processing libraries"
+    },
+    {
+      "id": "5",
+      "name": "AWS",
+      "level": 70,
+      "category": "DevOps",
+      "icon": "☁️",
+      "description": "Cloud infrastructure, deployment, and serverless architecture"
+    },
+    {
+      "id": "6",
+      "name": "Docker",
+      "level": 75,
+      "category": "DevOps",
+      "icon": "🐳",
+      "description": "Containerization, orchestration, and deployment automation"
+    },
+    {
+      "id": "7",
+      "name": "PostgreSQL",
+      "level": 80,
+      "category": "Database",
+      "icon": "🐘",
+      "description": "Advanced SQL queries, database design, and performance optimization"
+    },
+    {
+      "id": "8",
+      "name": "MongoDB",
+      "level": 75,
+      "category": "Database",
+      "icon": "🍃",
+      "description": "NoSQL database design, aggregation pipelines, and data modeling"
+    }
+  ],
+  "categories": [
+    {
+      "id": "frontend",
+      "name": "Frontend",
+      "description": "User interface and user experience technologies"
+    },
+    {
+      "id": "backend", 
+      "name": "Backend",
+      "description": "Server-side technologies and APIs"
+    },
+    {
+      "id": "devops",
+      "name": "DevOps",
+      "description": "Infrastructure, deployment, and automation tools"
+    },
+    {
+      "id": "database",
+      "name": "Database",
+      "description": "Data storage and management systems"
+    }
+  ]
+}
