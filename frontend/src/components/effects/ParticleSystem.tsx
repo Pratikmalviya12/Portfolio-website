@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { useMousePosition } from '../../hooks';
+import { useTheme } from '../../contexts/ThemeContext';
 import { prefersReducedMotion } from '../../utils';
 
 interface Particle {
@@ -18,8 +19,12 @@ export const ParticleSystem: React.FC = () => {
   const particlesRef = useRef<Particle[]>([]);
   const animationFrameRef = useRef<number>();
   const mousePosition = useMousePosition();
+  const { theme } = useTheme();
 
-  const colors = ['#FF2A6D', '#05D9E8', '#A663CC', '#00FFFF', '#00FF00'];
+  // Theme-aware colors
+  const colors = theme === 'light' 
+    ? ['#3B82F6', '#8B5CF6', '#06B6D4', '#10B981', '#F59E0B'] // Light theme: blues, purples, teals
+    : ['#60A5FA', '#A78BFA', '#34D399', '#FBBF24', '#F87171']; // Dark theme: lighter variants
 
   const createParticle = useCallback((x: number, y: number): Particle => {
     return {
@@ -29,10 +34,10 @@ export const ParticleSystem: React.FC = () => {
       vy: (Math.random() - 0.5) * 2,
       life: 60,
       maxLife: 60,
-      size: Math.random() * 3 + 1,
+      size: Math.random() * 2 + 0.5, // Smaller, more subtle particles
       color: colors[Math.floor(Math.random() * colors.length)]
     };
-  }, []);
+  }, [colors]);
 
   const updateParticles = useCallback(() => {
     const canvas = canvasRef.current;
@@ -44,8 +49,8 @@ export const ParticleSystem: React.FC = () => {
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Add new particles near mouse
-    if (Math.random() < 0.1) {
+    // Add new particles near mouse (reduced frequency for subtlety)
+    if (Math.random() < 0.05) {
       const offsetX = (Math.random() - 0.5) * 100;
       const offsetY = (Math.random() - 0.5) * 100;
       particlesRef.current.push(
@@ -83,11 +88,11 @@ export const ParticleSystem: React.FC = () => {
         const dy = particle.y - otherParticle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 100) {
+        if (distance < 80) { // Reduced connection distance
           ctx.save();
-          ctx.globalAlpha = (1 - distance / 100) * alpha * 0.3;
+          ctx.globalAlpha = (1 - distance / 80) * alpha * 0.2; // More subtle connections
           ctx.strokeStyle = particle.color;
-          ctx.lineWidth = 1;
+          ctx.lineWidth = 0.5; // Thinner lines
           ctx.beginPath();
           ctx.moveTo(particle.x, particle.y);
           ctx.lineTo(otherParticle.x, otherParticle.y);
@@ -136,7 +141,7 @@ export const ParticleSystem: React.FC = () => {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: theme === 'light' ? 0.3 : 0.4 }} // Adjust opacity based on theme
       aria-hidden="true"
     />
   );

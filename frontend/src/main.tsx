@@ -24,13 +24,13 @@ class ErrorBoundary extends React.Component<
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-background-dark text-white flex items-center justify-center">
+        <div className="min-h-screen bg-primary-900 text-white flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-cyber-primary mb-4">System Error</h1>
-            <p className="text-gray-300 mb-6">Something went wrong in the neural network.</p>
+            <h1 className="text-4xl font-bold text-accent-blue-600 mb-4">System Error</h1>
+            <p className="text-primary-300 mb-6">Something went wrong in the neural network.</p>
             <button
               onClick={() => this.setState({ hasError: false })}
-              className="cyberpunk-button"
+              className="px-6 py-3 bg-accent-blue-600 text-white rounded-lg hover:bg-accent-blue-700 transition-colors"
             >
               Restart System
             </button>

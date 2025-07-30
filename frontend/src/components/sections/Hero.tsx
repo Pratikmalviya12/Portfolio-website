@@ -1,11 +1,10 @@
 // src/components/sections/Hero.tsx
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { TypewriterEffect } from "../effects/TypewriterEffect";
-import { ParticleSystem } from "../effects/ParticleSystem";
 import { Button } from "../ui/Button";
-import { useIntersectionObserver } from "../../hooks";
+import { useIntersectionObserver, useSmoothScroll } from "../../hooks";
+import { portfolioData } from "../../data";
 
 interface HeroProps {
   name?: string;
@@ -14,43 +13,38 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({
-  name = "Developer",
-  title = "Full Stack Developer",
-  description = "Crafting the future of web development with cutting-edge technologies and cyberpunk aesthetics.",
+  name = portfolioData.personal.name,
+  title = portfolioData.personal.title,
+  description = portfolioData.personal.description,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const { elementRef } = useIntersectionObserver();
-  const navigate = useNavigate();
+  const { scrollToElement } = useSmoothScroll();
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const goToProjects = () => {
-    navigate('/projects');
+  const scrollToProjects = () => {
+    scrollToElement("projects", {
+      duration: 1000,
+      offset: 80,
+    });
   };
 
   const scrollToContact = () => {
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToElement("contact", {
+      duration: 1000,
+      offset: 80,
+    });
   };
 
   return (
     <section
       ref={elementRef}
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4"
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 bg-transparent"
     >
-      <ParticleSystem />
-
-      {/* Background grid pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-10" />
-
-      {/* Scan lines */}
-      <div className="absolute inset-0 scanlines opacity-30" />
-
       <div className="container mx-auto text-center relative z-10 max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -63,17 +57,16 @@ export const Hero: React.FC<HeroProps> = ({
             initial={{ opacity: 0 }}
             animate={isVisible ? { opacity: 1 } : {}}
             transition={{ duration: 1, delay: 0.5 }}
-            className="font-mono text-cyber-accent text-xs md:text-sm leading-tight mb-8"
+            className="font-mono text-accent-blue-600 dark:text-accent-blue-400 text-xs md:text-sm leading-tight mb-8"
           >
-            {/* <pre className="whitespace-pre">Pratik Kumar Malviya</pre> */}
           </motion.div>
 
           {/* Name with glitch effect */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-4xl md:text-6xl lg:text-8xl font-bold text-cyber-primary glitch-text mb-6"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-900 dark:text-primary-50 mb-6"
             data-text={name}
           >
             {name}
@@ -83,13 +76,13 @@ export const Hero: React.FC<HeroProps> = ({
           <motion.div
             initial={{ opacity: 0 }}
             animate={isVisible ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-3xl lg:text-4xl text-cyber-secondary font-mono mb-6"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-lg md:text-2xl lg:text-3xl text-primary-700 dark:text-primary-200 font-mono mb-6"
           >
             <TypewriterEffect
               text={title}
-              speed={80}
-              startDelay={800}
+              speed={100}
+              startDelay={600}
               className=""
             />
           </motion.div>
@@ -98,44 +91,23 @@ export const Hero: React.FC<HeroProps> = ({
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 1.8 }}
-            className="text-lg md:text-xl text-cyber-secondary max-w-3xl mx-auto leading-relaxed mb-8"
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="text-base md:text-lg text-primary-600 dark:text-primary-300 max-w-3xl mx-auto leading-relaxed mb-8"
           >
             {description}
           </motion.p>
-
-          {/* Status indicators */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isVisible ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 2.2 }}
-            className="flex flex-wrap justify-center gap-4 mb-12"
-          >
-            <div className="flex items-center space-x-2 bg-background-card/50 backdrop-blur-sm px-4 py-2 rounded-full border border-cyber-accent/30">
-              <div className="w-2 h-2 bg-cyber-green rounded-full animate-pulse" />
-              <span className="text-cyber-accent font-mono text-sm">
-                SYSTEM_ONLINE
-              </span>
-            </div>
-            <div className="flex items-center space-x-2 bg-background-card/50 backdrop-blur-sm px-4 py-2 rounded-full border border-cyber-accent/30">
-              <div className="w-2 h-2 bg-cyber-primary rounded-full animate-pulse" />
-              <span className="text-cyber-primary font-mono text-sm">
-                AVAILABLE_FOR_HIRE
-              </span>
-            </div>
-          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isVisible ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 2.5 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center"
+            transition={{ duration: 0.6, delay: 1.0 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Button
-              onClick={goToProjects}
+              onClick={scrollToProjects}
               variant="primary"
-              size="lg"
+              size="md"
               className="group"
             >
               <span>View Projects</span>
@@ -148,7 +120,7 @@ export const Hero: React.FC<HeroProps> = ({
               </motion.span>
             </Button>
 
-            <Button onClick={scrollToContact} variant="outline" size="lg">
+            <Button onClick={scrollToContact} variant="outline" size="md">
               Get In Touch
             </Button>
           </motion.div>

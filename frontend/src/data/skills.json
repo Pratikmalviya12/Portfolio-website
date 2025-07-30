@@ -2,89 +2,139 @@
   "skills": [
     {
       "id": "1",
-      "name": "React",
+      "name": "TypeScript",
       "level": 90,
       "category": "Frontend",
-      "icon": "⚛️",
-      "description": "Advanced knowledge in React development with hooks, context, and performance optimization"
+      "icon": "📘",
+      "description": "Advanced TypeScript development with strong typing and modern patterns"
     },
     {
-      "id": "2", 
-      "name": "TypeScript",
+      "id": "2",
+      "name": "JavaScript",
+      "level": 90,
+      "category": "Frontend",
+      "icon": "💛",
+      "description": "Expert-level JavaScript development with ES6+ features"
+    },
+    {
+      "id": "3", 
+      "name": "React",
       "level": 85,
       "category": "Frontend",
-      "icon": "📘",
-      "description": "Strong typing and advanced TypeScript patterns for scalable applications"
-    },
-    {
-      "id": "3",
-      "name": "Node.js",
-      "level": 80,
-      "category": "Backend",
-      "icon": "🟢",
-      "description": "Server-side JavaScript development with Express, APIs, and microservices"
+      "icon": "⚛️",
+      "description": "Advanced React development with hooks, context, and performance optimization"
     },
     {
       "id": "4",
-      "name": "Python",
-      "level": 75,
-      "category": "Backend",
-      "icon": "🐍",
-      "description": "Backend development with Django, Flask, and data processing libraries"
+      "name": "Zustand",
+      "level": 80,
+      "category": "Frontend",
+      "icon": "🐻",
+      "description": "State management with Zustand for React applications"
     },
     {
       "id": "5",
-      "name": "AWS",
-      "level": 70,
-      "category": "DevOps",
-      "icon": "☁️",
-      "description": "Cloud infrastructure, deployment, and serverless architecture"
+      "name": "Python",
+      "level": 85,
+      "category": "Backend",
+      "icon": "🐍",
+      "description": "Backend development with Python and modern frameworks"
     },
     {
       "id": "6",
-      "name": "Docker",
-      "level": 75,
-      "category": "DevOps",
-      "icon": "🐳",
-      "description": "Containerization, orchestration, and deployment automation"
+      "name": "FastAPI",
+      "level": 80,
+      "category": "Backend",
+      "icon": "⚡",
+      "description": "High-performance API development with FastAPI framework"
     },
     {
       "id": "7",
-      "name": "PostgreSQL",
-      "level": 80,
-      "category": "Database",
-      "icon": "🐘",
-      "description": "Advanced SQL queries, database design, and performance optimization"
+      "name": "Tailwind CSS",
+      "level": 85,
+      "category": "Frontend",
+      "icon": "💨",
+      "description": "Utility-first CSS framework for rapid UI development"
     },
     {
       "id": "8",
-      "name": "MongoDB",
-      "level": 75,
+      "name": "HTML",
+      "level": 90,
+      "category": "Frontend",
+      "icon": "🌐",
+      "description": "Semantic HTML5 markup and web standards"
+    },
+    {
+      "id": "9",
+      "name": "CSS",
+      "level": 85,
+      "category": "Frontend",
+      "icon": "🎨",
+      "description": "Modern CSS3 with animations, grid, and flexbox"
+    },
+    {
+      "id": "10",
+      "name": "SQL",
+      "level": 80,
       "category": "Database",
-      "icon": "🍃",
-      "description": "NoSQL database design, aggregation pipelines, and data modeling"
-    }
-  ],
-  "categories": [
-    {
-      "id": "frontend",
-      "name": "Frontend",
-      "description": "User interface and user experience technologies"
+      "icon": "💾",
+      "description": "Database query optimization and advanced SQL techniques"
     },
     {
-      "id": "backend", 
-      "name": "Backend",
-      "description": "Server-side technologies and APIs"
+      "id": "11",
+      "name": "Object-oriented Programming",
+      "level": 85,
+      "category": "Backend",
+      "icon": "🔧",
+      "description": "OOP principles and design patterns implementation"
     },
     {
-      "id": "devops",
-      "name": "DevOps",
-      "description": "Infrastructure, deployment, and automation tools"
+      "id": "12",
+      "name": "Full Stack Development",
+      "level": 85,
+      "category": "Full Stack",
+      "icon": "🚀",
+      "description": "End-to-end web application development"
     },
     {
-      "id": "database",
-      "name": "Database",
-      "description": "Data storage and management systems"
+      "id": "13",
+      "name": "Web Application Optimization",
+      "level": 80,
+      "category": "Performance",
+      "icon": "⚡",
+      "description": "Performance optimization and best practices"
+    },
+    {
+      "id": "14",
+      "name": "UI/UX Enhancement",
+      "level": 80,
+      "category": "Design",
+      "icon": "🎯",
+      "description": "User interface design and user experience optimization"
+    },
+    {
+      "id": "15",
+      "name": "Debugging and Troubleshooting",
+      "level": 85,
+      "category": "Development",
+      "icon": "🔍",
+      "description": "Critical issue resolution and system debugging"
+    },
+    {
+      "id": "16",
+      "name": "API Performance Optimization",
+      "level": 80,
+      "category": "Backend",
+      "icon": "📊",
+      "description": "API optimization and latency reduction techniques"
+    },
+    {
+      "id": "17",
+      "name": "Database Query Optimization",
+      "level": 80,
+      "category": "Database",
+      "icon": "🗄️",
+      "description": "Database restructuring and query efficiency improvement"
     }
   ]
 }

@@ -1,23 +1,27 @@
 // src/hooks/useScrollToTop.ts
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useCallback } from 'react';
 
 /**
- * Hook that automatically scrolls to top when route changes
- * 
- * @param smooth - Whether to use smooth scrolling (default: true)
- * @param enabled - Whether the scroll-to-top is enabled (default: true)
+ * Hook that provides scroll utilities for single-page applications
  */
-export const useScrollToTop = (smooth: boolean = true, enabled: boolean = true) => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    if (!enabled) return;
-
+export const useScrollToTop = () => {
+  const scrollToTop = useCallback((smooth: boolean = true) => {
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: smooth ? 'smooth' : 'auto'
     });
-  }, [pathname, smooth, enabled]);
+  }, []);
+
+  const scrollToSection = useCallback((sectionId: string, smooth: boolean = true) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: smooth ? 'smooth' : 'auto',
+        block: 'start'
+      });
+    }
+  }, []);
+
+  return { scrollToTop, scrollToSection };
 };

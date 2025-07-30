@@ -2,30 +2,52 @@
   "personal": {
     "name": "Pratik Kumar Malviya",
     "title": "Full Stack Developer",
-    "description": "Crafting the future of web development with cutting-edge technologies and cyberpunk aesthetics.",
-    "email": "pratik.malviya@example.com",
-    "phone": "+91 98765 43210",
-    "location": "India",
-    "bio": "I'm a passionate full-stack developer with expertise in modern web technologies. I love creating innovative solutions that push the boundaries of what's possible on the web.",
+    "description": "Accomplished full-stack web developer with expertise in TypeScript, React, and Python FastAPI, specializing in user interface design and API performance optimization.",
+    "email": "pratikmalviya32@gmail.com",
+    "phone": "9321879335",
+    "location": "Mumbai, India",
+    "bio": "Accomplished full-stack web developer with expertise in TypeScript, React, and Python FastAPI, specializing in user interface design and API performance optimization. Demonstrated success in enhancing user engagement by 25% and reducing system latency by 30% through advanced coding techniques. Proficient in database restructuring, achieving a 50% improvement in query efficiency, and skilled in leveraging tools like Tailwind CSS and SQL to optimize development processes. Committed to delivering innovative solutions that drive efficiency and elevate user experiences.",
     "profileImage": "/images/profile.jpg",
     "resume": "/documents/resume.pdf"
   },
+  "sections": {
+    "about": {
+      "title": "About Me",
+      "subtitle": "Get to know me better"
+    },
+    "skills": {
+      "title": "Skills",
+      "subtitle": "Technologies I work with"
+    },
+    "projects": {
+      "title": "Projects",
+      "subtitle": "Things I've built"
+    },
+    "experience": {
+      "title": "Experience",
+      "subtitle": "My professional journey"
+    },
+    "contact": {
+      "title": "Contact",
+      "subtitle": "Let's get in touch"
+    }
+  },
   "stats": {
-    "yearsExperience": "3+",
-    "projectsCompleted": "50+",
+    "yearsExperience": "1+",
+    "projectsCompleted": "10+",
     "clientSatisfaction": "100%"
   },
   "socialLinks": [
     {
       "platform": "GitHub",
-      "url": "https://github.com/Pratikmalviya12",
+      "url": "https://github.com/Pratikmalviya12/",
       "username": "@Pratikmalviya12",
       "iconType": "github"
     },
     {
       "platform": "LinkedIn",
-      "url": "https://linkedin.com/in/pratikmalviya",
-      "username": "/in/pratikmalviya",
+      "url": "https://www.linkedin.com/in/pratik-kumar-malviya-38019b204",
+      "username": "/in/pratik-kumar-malviya-38019b204",
       "iconType": "linkedin"
     },
     {

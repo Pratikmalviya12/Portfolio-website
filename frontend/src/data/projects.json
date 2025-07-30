@@ -2,32 +2,38 @@
   "projects": [
     {
       "id": "1",
-      "title": "E-Commerce Platform",
-      "description": "Full-stack e-commerce solution with React and Node.js",
-      "longDescription": "A comprehensive e-commerce platform featuring user authentication, product catalog, shopping cart, payment integration, and admin dashboard. Built with modern technologies and best practices for scalability and performance.",
-      "technologies": ["React", "Node.js", "MongoDB", "Stripe", "JWT"],
-      "category": "fullstack",
+      "title": "Template Designer Application",
+      "description": "Interactive drag-and-drop template designer for custom email templates",
+      "longDescription": "Developed an interactive drag-and-drop template designer enabling users to create custom email templates. Built with modern React technologies and featuring real-time preview capabilities, component library, and seamless template export functionality.",
+      "technologies": ["React", "HTML5 Drag and Drop API", "CSS", "TypeScript"],
+      "category": "frontend",
       "featured": true,
       "year": 2024,
       "status": "completed",
-      "demoUrl": "https://demo-ecommerce.example.com",
-      "githubUrl": "https://github.com/yourusername/ecommerce-platform",
+      "demoUrl": "#",
+      "githubUrl": "#",
       "images": [
-        "/images/projects/ecommerce-1.jpg",
-        "/images/projects/ecommerce-2.jpg"
+        "/images/projects/template-designer-1.jpg",
+        "/images/projects/template-designer-2.jpg"
       ],
       "features": [
-        "User authentication and authorization",
-        "Product catalog with search and filters",
-        "Shopping cart and wishlist",
-        "Payment integration with Stripe",
-        "Admin dashboard for inventory management",
+        "Implemented dynamic HTML generation and export functionality for seamless template download",
+        "Built responsive UI components with real-time preview capabilities",
+        "Visual template builder with intuitive drag-and-drop interface",
+        "Component library for reusable email template elements",
+        "HTML export with cross-browser compatibility",
+        "Real-time preview of template changes"
+      ],
+      "achievements": [
+        "Seamless template creation and download experience",
+        "Cross-browser compatible HTML export",
+        "Intuitive drag-and-drop interface",
         "Responsive design for all devices"
       ],
       "challenges": [
-        "Implementing real-time inventory updates",
-        "Optimizing performance for large product catalogs",
-        "Ensuring secure payment processing"
+        "Implementing complex drag-and-drop functionality",
+        "Ensuring cross-browser HTML export compatibility",
+        "Creating a seamless user experience for template building"
       ]
     },
     {
@@ -41,7 +47,7 @@
       "year": 2024,
       "status": "completed",
       "demoUrl": "https://demo-taskmanager.example.com",
-      "githubUrl": "https://github.com/yourusername/task-manager",
+      "githubUrl": "https://github.com/Pratikmalviya12/task-manager",
       "images": [
         "/images/projects/taskmanager-1.jpg",
         "/images/projects/taskmanager-2.jpg"
@@ -71,7 +77,7 @@
       "year": 2023,
       "status": "completed",
       "demoUrl": "https://demo-weather.example.com",
-      "githubUrl": "https://github.com/yourusername/weather-dashboard",
+      "githubUrl": "https://github.com/Pratikmalviya12/weather-dashboard",
       "images": [
         "/images/projects/weather-1.jpg"
       ],
@@ -100,7 +106,7 @@
       "year": 2023,
       "status": "completed",
       "demoUrl": null,
-      "githubUrl": "https://github.com/yourusername/api-gateway",
+      "githubUrl": "https://github.com/Pratikmalviya12/api-gateway",
       "images": [
         "/images/projects/api-gateway-1.jpg"
       ],

@@ -1,38 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Github, Linkedin, Twitter, Mail } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { portfolioData } from '../../data';
 
-interface SocialLink {
-  platform: string;
-  url: string;
-  icon: React.ReactNode;
-}
-
-const socialLinks: SocialLink[] = [
-  {
-    platform: 'GitHub',
-    url: 'https://github.com/yourusername',
-    icon: <Github className="w-5 h-5" />
-  },
-  {
-    platform: 'LinkedIn',
-    url: 'https://linkedin.com/in/yourusername',
-    icon: <Linkedin className="w-5 h-5" />
-  },
-  {
-    platform: 'Twitter',
-    url: 'https://twitter.com/yourusername',
-    icon: <Twitter className="w-5 h-5" />
-  },
-  {
-    platform: 'Email',
-    url: 'mailto:your.email@example.com',
-    icon: <Mail className="w-5 h-5" />
+const getIconForPlatform = (iconType: string) => {
+  switch (iconType) {
+    case 'github':
+      return <Github className="w-5 h-5" />;
+    case 'linkedin':
+      return <Linkedin className="w-5 h-5" />;
+    case 'twitter':
+      return <Twitter className="w-5 h-5" />;
+    default:
+      return <Mail className="w-5 h-5" />;
   }
-];
+};
 
 export const Footer: React.FC = () => {
+  const socialLinks = portfolioData.socialLinks;
   const currentYear = new Date().getFullYear();
 
   const containerVariants = {
@@ -59,7 +44,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative py-12 border-t border-cyber-primary/20">
+    <footer className="relative py-12 border-t border-primary-200 dark:border-primary-700 bg-transparent">
       <div className="container mx-auto px-6">
         <motion.div
           variants={containerVariants}
@@ -77,42 +62,13 @@ export const Footer: React.FC = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-cyber-primary/10 border border-cyber-primary/30 text-cyber-primary hover:text-black hover:bg-cyber-primary hover:border-cyber-primary hover:shadow-lg hover:shadow-cyber-primary/20 transition-all duration-300"
+                  className="p-3 rounded-full bg-primary-50 dark:bg-primary-800 border border-primary-200 dark:border-primary-700 text-accent-blue-600 dark:text-accent-blue-400 hover:text-white hover:bg-accent-blue-600 dark:hover:bg-accent-blue-500 hover:border-accent-blue-600 dark:hover:border-accent-blue-500 hover:shadow-lg hover:shadow-accent-blue-500/20 transition-all duration-300"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={`Visit my ${link.platform}`}
                 >
-                  {link.icon}
+                  {getIconForPlatform(link.iconType)}
                 </motion.a>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Quick Links */}
-          <motion.div variants={itemVariants} className="text-center mb-8">
-            <div className="flex flex-wrap justify-center gap-6 text-sm">
-              {[
-                { label: 'Home', href: '/' },
-                { label: 'About', href: '/about' },
-                { label: 'Skills', href: '/skills' },
-                { label: 'Projects', href: '/projects' },
-                { label: 'Experience', href: '/experience' },
-                { label: 'Contact', href: '#contact' }
-              ].map((link, index) => (
-                <Link
-                  key={index}
-                  to={link.href.startsWith('#') ? '#contact' : link.href}
-                  className="text-cyber-primary hover:text-black hover:bg-cyber-primary/20 px-3 py-1 rounded-lg transition-all duration-300 font-mono"
-                  onClick={link.href === '#contact' ? (e) => {
-                    e.preventDefault();
-                    const element = document.querySelector('#contact');
-                    if (element) {
-                      element.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  } : undefined}
-                >
-                  {link.label}
-                </Link>
               ))}
             </div>
           </motion.div>
@@ -120,38 +76,27 @@ export const Footer: React.FC = () => {
           {/* Divider */}
           <motion.div 
             variants={itemVariants}
-            className="w-full h-px bg-gradient-to-r from-transparent via-cyber-primary/50 to-transparent mb-8"
+            className="w-full h-px bg-gradient-to-r from-transparent via-primary-300 dark:via-primary-600 to-transparent mb-8"
           />
 
           {/* Copyright */}
           <motion.div variants={itemVariants} className="text-center">
-            <p className="text-cyber-primary text-sm font-mono flex items-center justify-center gap-2">
+            <p className="text-primary-700 dark:text-primary-300 text-sm font-mono flex items-center justify-center gap-2">
               <span>&copy; {currentYear} Portfolio. Made with</span>
-              <Heart className="w-4 h-4 text-cyber-primary animate-pulse" />
+              <Heart className="w-4 h-4 text-accent-purple-500 dark:text-accent-purple-400 animate-pulse" />
               <span>by Developer</span>
             </p>
-            <p className="text-cyber-primary/70 text-xs mt-2 font-mono">
+            <p className="text-primary-600 dark:text-primary-400 text-xs mt-2 font-mono">
               Built with React, TypeScript, Tailwind CSS & Framer Motion
             </p>
           </motion.div>
-
-          {/* Back to Top Button */}
-          <motion.button
-            variants={itemVariants}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="mt-8 mx-auto block bg-cyber-primary text-black hover:bg-cyber-primary/80 transition-colors duration-300 text-sm py-2 px-4 rounded-lg font-mono"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            ↑ Back to Top
-          </motion.button>
         </motion.div>
       </div>
 
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 -left-24 w-48 h-48 bg-cyber-primary/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-cyber-secondary/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -top-24 -left-24 w-48 h-48 bg-accent-blue-500/5 dark:bg-accent-blue-400/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-accent-purple-500/5 dark:bg-accent-purple-400/5 rounded-full blur-3xl animate-pulse" />
       </div>
     </footer>
   );

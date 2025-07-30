@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Filter, X } from 'lucide-react';
-import { projectsData, type Project } from '../../data';
+import { projectsData, portfolioData, type Project } from '../../data';
 
 interface ProjectsProps {
   projects?: Project[];
@@ -25,19 +25,19 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
+        staggerChildren: 0.05,
+        delayChildren: 0.1
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.4,
         ease: "easeOut"
       }
     }
@@ -45,27 +45,27 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
 
   const ProjectCard: React.FC<{ project: Project }> = ({ project }) => (
     <div
-      className="cyberpunk-card group cursor-pointer w-full flex flex-col"
+      className="bg-white/90 dark:bg-primary-800/80 backdrop-blur-md border border-primary-200/60 dark:border-primary-700/60 hover:border-accent-blue-400 dark:hover:border-accent-blue-500 group cursor-pointer w-full flex flex-col rounded-lg p-4 transition-all duration-300 hover:shadow-lg hover:shadow-accent-blue-500/20 shadow-lg"
       onClick={() => setSelectedProject(project)}
     >
       {(project.images && project.images.length > 0) && (
-        <div className="w-full h-48 bg-gradient-to-br from-cyber-primary/20 to-cyber-secondary/20 rounded-lg mb-4 flex items-center justify-center flex-shrink-0">
-          <span className="text-4xl opacity-50">🖼️</span>
+        <div className="w-full h-32 bg-gradient-to-br from-primary-100 dark:from-primary-700 to-accent-blue-100 dark:to-accent-blue-800 rounded-lg mb-3 flex items-center justify-center flex-shrink-0">
+          <span className="text-2xl opacity-50">🖼️</span>
         </div>
       )}
       
-      <div className="flex flex-col flex-grow space-y-4">
+      <div className="flex flex-col flex-grow space-y-3">
         {project.featured && (
-          <span className="inline-block px-2 py-1 text-xs font-semibold bg-cyber-primary text-black rounded-full w-fit">
+          <span className="inline-block px-2 py-1 text-xs font-semibold bg-accent-blue-600 text-white rounded-full w-fit">
             Featured
           </span>
         )}
         
-        <h3 className="text-xl font-semibold text-cyber-primary group-hover:text-cyber-secondary transition-colors">
+        <h3 className="text-base font-semibold text-primary-900 dark:text-primary-50 group-hover:text-accent-blue-600 dark:group-hover:text-accent-blue-400 transition-colors">
           {project.title}
         </h3>
         
-        <p className="text-cyber-secondary text-sm leading-relaxed flex-grow">
+        <p className="text-primary-700 dark:text-primary-300 text-xs leading-relaxed flex-grow">
           {project.description}
         </p>
         
@@ -73,26 +73,26 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
           {project.technologies.slice(0, 3).map((tech, index) => (
             <span
               key={index}
-              className="px-2 py-1 text-xs bg-cyber-accent/20 text-cyber-accent rounded border border-cyber-accent/30"
+              className="px-2 py-1 text-xs bg-primary-100 dark:bg-primary-700 text-primary-800 dark:text-primary-200 rounded border border-primary-200 dark:border-primary-600"
             >
               {tech}
             </span>
           ))}
           {project.technologies.length > 3 && (
-            <span className="px-2 py-1 text-xs bg-background-accent text-cyber-accent rounded">
+            <span className="px-2 py-1 text-xs bg-primary-800 dark:bg-accent-blue-800 text-white dark:text-accent-blue-200 rounded border border-primary-800 dark:border-accent-blue-600">
               +{project.technologies.length - 3} more
             </span>
           )}
         </div>
         
-        <div className="flex items-center justify-between pt-4 border-t border-cyber-accent/20 mt-auto">
-          <span className="text-sm text-cyber-secondary font-mono">{project.year}</span>
+        <div className="flex items-center justify-between pt-4 border-t border-primary-200 dark:border-primary-600 mt-auto">
+          <span className="text-sm text-primary-600 dark:text-primary-400 font-mono">{project.year}</span>
           <div className="flex space-x-2">
             {project.demoUrl && (
-              <ExternalLink className="w-4 h-4 text-cyber-accent hover:text-cyber-primary transition-colors" />
+              <ExternalLink className="w-4 h-4 text-accent-blue-600 dark:text-accent-blue-400 hover:text-accent-blue-700 dark:hover:text-accent-blue-300 transition-colors" />
             )}
             {project.githubUrl && (
-              <Github className="w-4 h-4 text-cyber-accent hover:text-cyber-primary transition-colors" />
+              <Github className="w-4 h-4 text-accent-blue-600 dark:text-accent-blue-400 hover:text-accent-blue-700 dark:hover:text-accent-blue-300 transition-colors" />
             )}
           </div>
         </div>
@@ -102,38 +102,40 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
 
   return (
     <>
-      <section id="projects" className="py-20 relative">
+      <section id="projects" className="py-5 relative bg-transparent">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="max-w-6xl mx-auto"
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.4 }}
+            className="max-w-6xl mx-auto motion-safe-fallback"
           >
             {/* Section Header */}
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.4 }}
+              className="text-center mb-12"
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-cyber-primary mb-4 glitch-text" data-text="Projects">
-                Projects
+              <h2 className="text-xl md:text-2xl font-bold text-primary-900 dark:text-primary-50 mb-3" data-text={portfolioData.sections.projects.title}>
+                {portfolioData.sections.projects.title}
               </h2>
-              <p className="text-xl text-cyber-secondary max-w-2xl mx-auto">
-                A showcase of my work and technical capabilities
+              <p className="text-sm md:text-base text-primary-600 dark:text-primary-300 max-w-2xl mx-auto">
+                {portfolioData.sections.projects.subtitle}
               </p>
-              <div className="w-24 h-1 bg-gradient-to-r from-cyber-primary to-cyber-secondary mx-auto mt-4 rounded-full"></div>
+              <div className="w-20 h-0.5 bg-gradient-to-r from-accent-blue-500 to-accent-purple-500 mx-auto mt-3 rounded-full"></div>
             </motion.div>
 
             {/* Category Filter */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-wrap justify-center gap-4 mb-12"
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="flex flex-wrap justify-center gap-3 mb-10"
             >
               {categories.map((category) => {
                 const count = category === 'all' 
@@ -146,8 +148,8 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
                     onClick={() => setSelectedCategory(category)}
                     className={`px-4 py-2 rounded-full font-mono text-sm transition-all duration-300 border ${
                       selectedCategory === category
-                        ? 'bg-cyber-primary text-black border-cyber-primary'
-                        : 'bg-background-card text-cyber-primary border-cyber-accent hover:bg-background-accent hover:border-cyber-secondary'
+                        ? 'bg-accent-blue-600 text-white border-accent-blue-600 hover:bg-accent-blue-700'
+                        : 'bg-white dark:bg-primary-800 text-primary-900 dark:text-primary-100 border-primary-300 dark:border-primary-600 hover:bg-primary-50 dark:hover:bg-primary-700 hover:border-accent-blue-400 dark:hover:border-accent-blue-500'
                     }`}
                   >
                     <Filter className="w-4 h-4 inline mr-2" />
@@ -161,9 +163,14 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
             <motion.div
               variants={containerVariants}
               initial="hidden"
+              animate="visible"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              className="flex flex-wrap justify-center gap-8 min-h-[400px]"
+              viewport={{ 
+                once: false, 
+                amount: 0.05,
+                margin: "0px 0px -50px 0px" 
+              }}
+              className="flex flex-wrap justify-center gap-6 min-h-[300px] motion-safe-fallback"
             >
               <AnimatePresence>
                 {filteredProjects.length > 0 ? (
@@ -176,7 +183,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
                       exit="hidden"
                       layout
                       transition={{ duration: 0.3 }}
-                      className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.33rem)] flex"
+                      className="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] flex"
                     >
                       <ProjectCard project={project} />
                     </motion.div>
@@ -185,9 +192,9 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="w-full text-center py-12"
+                    className="w-full text-center py-8"
                   >
-                    <p className="text-cyber-accent text-lg">
+                    <p className="text-primary-600 dark:text-primary-400 text-sm">
                       No projects found in this category
                     </p>
                   </motion.div>
@@ -212,16 +219,16 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="cyberpunk-card max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-white/95 dark:bg-primary-800/95 backdrop-blur-md border border-primary-200/60 dark:border-primary-700/60 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-start mb-6">
-                <h3 className="text-2xl font-bold text-cyber-primary">
+                <h3 className="text-lg font-bold text-primary-900 dark:text-primary-50">
                   {selectedProject.title}
                 </h3>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-primary-600 dark:text-primary-400 hover:text-primary-900 dark:hover:text-primary-100 transition-colors"
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -229,20 +236,20 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
 
               <div className="space-y-6">
                 {selectedProject.longDescription && (
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-primary-700 dark:text-primary-300 leading-relaxed">
                     {selectedProject.longDescription}
                   </p>
                 )}
 
                 <div>
-                  <h4 className="text-lg font-semibold text-cyber-secondary mb-3">
+                  <h4 className="text-base font-semibold text-primary-900 dark:text-primary-100 mb-3">
                     Technologies Used
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.technologies.map((tech, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 text-sm bg-cyber-neon/20 text-cyber-neon rounded border border-cyber-neon/30"
+                        className="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-700 text-primary-800 dark:text-primary-200 rounded border border-primary-200 dark:border-primary-600"
                       >
                         {tech}
                       </span>
@@ -256,7 +263,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
                       href={selectedProject.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="cyberpunk-button inline-flex items-center"
+                      className="inline-flex items-center px-4 py-2 bg-accent-blue-600 text-white rounded-lg hover:bg-accent-blue-700 transition-colors font-medium"
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />
                       Live Demo
@@ -267,7 +274,7 @@ export const Projects: React.FC<ProjectsProps> = ({ projects: propProjects }) =>
                       href={selectedProject.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="cyberpunk-button bg-transparent hover:bg-cyber-neon/10 inline-flex items-center"
+                      className="inline-flex items-center px-4 py-2 bg-transparent border-2 border-accent-blue-600 text-accent-blue-600 dark:text-accent-blue-400 rounded-lg hover:bg-accent-blue-600 hover:text-white transition-colors font-medium"
                     >
                       <Github className="w-4 h-4 mr-2" />
                       View Code

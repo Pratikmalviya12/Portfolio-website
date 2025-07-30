@@ -300,11 +300,11 @@ export const SubtleBackground: React.FC<SubtleBackgroundProps> = ({
   if (prefersReducedMotion()) {
     return (
       <div className={`fixed inset-0 w-full h-full pointer-events-none z-0 ${
-        variant === 'gradient' ? 'bg-gradient-to-br from-cyber-primary/5 via-cyber-secondary/5 to-cyber-green/5' :
-        variant === 'particles' ? 'bg-gradient-to-br from-cyber-primary/10 via-cyber-green/5 to-cyber-secondary/10' :
-        variant === 'waves' ? 'bg-gradient-to-b from-cyber-primary/8 via-cyber-secondary/4 to-cyber-green/8' :
-        variant === 'geometric' ? 'bg-gradient-to-br from-cyber-primary/5 via-cyber-green/5 to-cyber-secondary/5' :
-        'bg-gradient-to-br from-cyber-primary/8 via-cyber-green/4 to-cyber-secondary/8'
+        variant === 'gradient' ? 'bg-gradient-to-br from-primary-100/5 via-accent-blue-100/5 to-accent-purple-100/5 dark:from-primary-800/5 dark:via-accent-blue-800/5 dark:to-accent-purple-800/5' :
+        variant === 'particles' ? 'bg-gradient-to-br from-primary-100/10 via-accent-blue-100/5 to-accent-purple-100/10 dark:from-primary-800/10 dark:via-accent-blue-800/5 dark:to-accent-purple-800/10' :
+        variant === 'waves' ? 'bg-gradient-to-b from-primary-100/8 via-accent-blue-100/4 to-accent-purple-100/8 dark:from-primary-800/8 dark:via-accent-blue-800/4 dark:to-accent-purple-800/8' :
+        variant === 'geometric' ? 'bg-gradient-to-br from-primary-100/5 via-accent-blue-100/5 to-accent-purple-100/5 dark:from-primary-800/5 dark:via-accent-blue-800/5 dark:to-accent-purple-800/5' :
+        'bg-gradient-to-br from-primary-100/8 via-accent-blue-100/4 to-accent-purple-100/8 dark:from-primary-800/8 dark:via-accent-blue-800/4 dark:to-accent-purple-800/8'
       }`} />
     );
   }

@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
-import { portfolioData } from '../../data';
-
-interface ContactForm {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Github,
+  Linkedin,
+  Twitter,
+} from "lucide-react";
+import { portfolioData } from "../../data";
+import { Button } from "../ui/Button";
+import { 
+  openEmailClient, 
+  validateContactForm, 
+  type ContactFormData 
+} from "../../utils/contactUtils";
 
 interface ContactProps {
   email?: string;
@@ -19,16 +26,18 @@ interface ContactProps {
 export const Contact: React.FC<ContactProps> = ({
   email: propEmail,
   phone: propPhone,
-  location: propLocation
+  location: propLocation,
 }) => {
-  const [formData, setFormData] = useState<ContactForm>({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
   // Use props or data from portfolio
   const email = propEmail || portfolioData.personal.email;
@@ -39,39 +48,58 @@ export const Contact: React.FC<ContactProps> = ({
   // Function to get icon based on iconType
   const getIcon = (iconType: string) => {
     switch (iconType.toLowerCase()) {
-      case 'github':
+      case "github":
         return <Github className="w-5 h-5" />;
-      case 'linkedin':
+      case "linkedin":
         return <Linkedin className="w-5 h-5" />;
-      case 'twitter':
+      case "twitter":
         return <Twitter className="w-5 h-5" />;
       default:
         return <Mail className="w-5 h-5" />;
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
+    // Validate form
+    const validationErrors = validateContactForm(formData);
+    if (validationErrors.length > 0) {
+      console.log("Validation errors:", validationErrors);
+      setIsSubmitting(false);
+      setSubmitStatus("error");
+      return;
+    }
+
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      // Open email client with pre-filled message
+      openEmailClient(formData, email);
+      
+      setSubmitStatus("success");
+      
+      // Clear form after successful submission
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      
     } catch (error) {
-      setSubmitStatus('error');
+      console.error("Failed to open email client:", error);
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
-      setTimeout(() => setSubmitStatus('idle'), 5000);
+      // Reset status after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus("idle");
+      }, 5000);
     }
   };
 
@@ -80,59 +108,67 @@ export const Contact: React.FC<ContactProps> = ({
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+        delayChildren: 0.05,
+      },
+    },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
+        duration: 0.4,
+        ease: "easeOut",
+      },
+    },
   };
 
   return (
-    <section id="contact" className="py-20 relative">
+    <section id="contact" className="py-5 relative bg-transparent">
       <div className="container mx-auto px-6">
         <motion.div
           variants={containerVariants}
           initial="hidden"
+          animate="visible"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="max-w-6xl mx-auto"
+          viewport={{ once: false, amount: 0.2 }}
+          className="max-w-6xl mx-auto motion-safe-fallback"
         >
           {/* Section Header */}
-          <motion.div variants={itemVariants} className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-cyber-primary mb-4 glitch-text" data-text="Contact">
-              Contact
+          <motion.div variants={itemVariants} className="text-center mb-12">
+            <h2
+              className="text-xl md:text-2xl font-bold text-primary-900 dark:text-primary-50 mb-3"
+              data-text={portfolioData.sections.contact.title}
+            >
+              {portfolioData.sections.contact.title}
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Let's connect and discuss your next project
+            <p className="text-sm md:text-base text-primary-600 dark:text-primary-300 max-w-2xl mx-auto">
+              {portfolioData.sections.contact.subtitle}
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-cyber-primary to-cyber-secondary mx-auto mt-4 rounded-full"></div>
+            <div className="w-20 h-0.5 bg-gradient-to-r from-accent-blue-500 to-accent-purple-500 mx-auto mt-3 rounded-full"></div>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-8">
             {/* Contact Information */}
-            <motion.div variants={itemVariants} className="space-y-8">
-              <div className="cyberpunk-card">
-                <h3 className="text-2xl font-semibold text-cyber-primary mb-6">Get In Touch</h3>
-                
-                <div className="space-y-6">
+            <motion.div variants={itemVariants} className="space-y-6">
+              <div className="bg-white/90 dark:bg-primary-800/80 backdrop-blur-md border border-primary-200/60 dark:border-primary-700/60 rounded-lg p-6 shadow-lg">
+                <h3 className="text-base font-semibold text-primary-900 dark:text-primary-50 mb-4">
+                  Get In Touch
+                </h3>
+
+                <div className="space-y-4">
                   <div className="flex items-center">
-                    <Mail className="w-6 h-6 text-cyber-neon mr-4 flex-shrink-0" />
+                    <Mail className="w-5 h-5 text-accent-blue-600 dark:text-accent-blue-400 mr-3 flex-shrink-0" />
                     <div>
-                      <p className="text-sm text-cyber-secondary font-mono">Email</p>
-                      <a 
+                      <p className="text-xs text-primary-600 dark:text-primary-400 font-mono">
+                        Email
+                      </p>
+                      <a
                         href={`mailto:${email}`}
-                        className="text-gray-300 hover:text-cyber-neon transition-colors"
+                        className="text-primary-700 dark:text-primary-300 hover:text-accent-blue-600 dark:hover:text-accent-blue-400 transition-colors text-sm"
                       >
                         {email}
                       </a>
@@ -140,12 +176,14 @@ export const Contact: React.FC<ContactProps> = ({
                   </div>
 
                   <div className="flex items-center">
-                    <Phone className="w-6 h-6 text-cyber-neon mr-4 flex-shrink-0" />
+                    <Phone className="w-5 h-5 text-accent-blue-600 dark:text-accent-blue-400 mr-3 flex-shrink-0" />
                     <div>
-                      <p className="text-sm text-cyber-secondary font-mono">Phone</p>
-                      <a 
+                      <p className="text-xs text-primary-600 dark:text-primary-400 font-mono">
+                        Phone
+                      </p>
+                      <a
                         href={`tel:${phone}`}
-                        className="text-gray-300 hover:text-cyber-neon transition-colors"
+                        className="text-primary-700 dark:text-primary-300 hover:text-accent-blue-600 dark:hover:text-accent-blue-400 transition-colors text-sm"
                       >
                         {phone}
                       </a>
@@ -153,37 +191,45 @@ export const Contact: React.FC<ContactProps> = ({
                   </div>
 
                   <div className="flex items-center">
-                    <MapPin className="w-6 h-6 text-cyber-neon mr-4 flex-shrink-0" />
+                    <MapPin className="w-5 h-5 text-accent-blue-600 dark:text-accent-blue-400 mr-3 flex-shrink-0" />
                     <div>
-                      <p className="text-sm text-cyber-secondary font-mono">Location</p>
-                      <p className="text-gray-300">{location}</p>
+                      <p className="text-xs text-primary-600 dark:text-primary-400 font-mono">
+                        Location
+                      </p>
+                      <p className="text-primary-700 dark:text-primary-300 text-sm">
+                        {location}
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Social Links */}
-              <div className="cyberpunk-card">
-                <h3 className="text-xl font-semibold text-cyber-primary mb-4">Connect With Me</h3>
-                <div className="space-y-4">
+              <div className="bg-white/90 dark:bg-primary-800/80 backdrop-blur-md border border-primary-200/60 dark:border-primary-700/60 rounded-lg p-6 shadow-lg">
+                <h3 className="text-base font-semibold text-primary-900 dark:text-primary-50 mb-3">
+                  Connect With Me
+                </h3>
+                <div className="space-y-3">
                   {socialLinks.map((link, index) => (
                     <motion.a
                       key={index}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center p-3 rounded-lg bg-background-dark hover:bg-cyber-neon/10 transition-all duration-300 group"
+                      className="flex items-center p-3 rounded-lg bg-primary-50/50 dark:bg-primary-900/50 hover:bg-accent-blue-50 dark:hover:bg-accent-blue-900/20 border border-primary-200/50 dark:border-primary-700/50 transition-all duration-300 group"
                       whileHover={{ scale: 1.02, x: 5 }}
                     >
-                      <div className="text-cyber-neon group-hover:text-cyber-primary transition-colors">
+                      <div className="text-accent-blue-600 dark:text-accent-blue-400 group-hover:text-accent-purple-600 dark:group-hover:text-accent-purple-400 transition-colors">
                         {getIcon(link.iconType)}
                       </div>
-                      <div className="ml-4">
-                        <p className="font-semibold text-white group-hover:text-cyber-primary transition-colors">
+                      <div className="ml-3">
+                        <p className="font-semibold text-primary-900 dark:text-primary-100 group-hover:text-accent-purple-700 dark:group-hover:text-accent-purple-300 transition-colors text-sm">
                           {link.platform}
                         </p>
                         {link.username && (
-                          <p className="text-sm text-gray-400 font-mono">{link.username}</p>
+                          <p className="text-xs text-primary-600 dark:text-primary-400 font-mono">
+                            {link.username}
+                          </p>
                         )}
                       </div>
                     </motion.a>
@@ -194,13 +240,18 @@ export const Contact: React.FC<ContactProps> = ({
 
             {/* Contact Form */}
             <motion.div variants={itemVariants}>
-              <div className="cyberpunk-card">
-                <h3 className="text-2xl font-semibold text-cyber-primary mb-6">Send Message</h3>
-                
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white/90 dark:bg-primary-800/80 backdrop-blur-md border border-primary-200/60 dark:border-primary-700/60 rounded-lg p-6 shadow-lg">
+                <h3 className="text-base font-semibold text-primary-900 dark:text-primary-50 mb-4">
+                  Send Message
+                </h3>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-cyber-secondary mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-xs font-medium text-primary-700 dark:text-primary-300 mb-1"
+                      >
                         Name *
                       </label>
                       <input
@@ -210,13 +261,16 @@ export const Contact: React.FC<ContactProps> = ({
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 bg-background-dark border border-cyber-neon/30 rounded-lg text-white placeholder-gray-400 focus:border-cyber-neon focus:outline-none focus:ring-2 focus:ring-cyber-neon/20 transition-all"
+                        className="w-full px-3 py-2 bg-white dark:bg-primary-900 border border-primary-300 dark:border-primary-600 rounded-lg text-primary-900 dark:text-primary-100 placeholder-primary-400 dark:placeholder-primary-500 focus:border-accent-blue-500 focus:outline-none focus:ring-1 focus:ring-accent-blue-500/20 transition-all text-sm"
                         placeholder="Your name"
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-cyber-secondary mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-xs font-medium text-primary-700 dark:text-primary-300 mb-1"
+                      >
                         Email *
                       </label>
                       <input
@@ -226,14 +280,17 @@ export const Contact: React.FC<ContactProps> = ({
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 bg-background-dark border border-cyber-neon/30 rounded-lg text-white placeholder-gray-400 focus:border-cyber-neon focus:outline-none focus:ring-2 focus:ring-cyber-neon/20 transition-all"
+                        className="w-full px-3 py-2 bg-white dark:bg-primary-900 border border-primary-300 dark:border-primary-600 rounded-lg text-primary-900 dark:text-primary-100 placeholder-primary-400 dark:placeholder-primary-500 focus:border-accent-blue-500 focus:outline-none focus:ring-1 focus:ring-accent-blue-500/20 transition-all text-sm"
                         placeholder="your.email@example.com"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-cyber-secondary mb-2">
+                    <label
+                      htmlFor="subject"
+                      className="block text-xs font-medium text-primary-700 dark:text-primary-300 mb-1"
+                    >
                       Subject *
                     </label>
                     <input
@@ -243,13 +300,16 @@ export const Contact: React.FC<ContactProps> = ({
                       value={formData.subject}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-background-dark border border-cyber-neon/30 rounded-lg text-white placeholder-gray-400 focus:border-cyber-neon focus:outline-none focus:ring-2 focus:ring-cyber-neon/20 transition-all"
-                      placeholder="What's this about?"
+                      className="w-full px-3 py-2 bg-white dark:bg-primary-900 border border-primary-300 dark:border-primary-600 rounded-lg text-primary-900 dark:text-primary-100 placeholder-primary-400 dark:placeholder-primary-500 focus:border-accent-blue-500 focus:outline-none focus:ring-1 focus:ring-accent-blue-500/20 transition-all text-sm"
+                      placeholder="Brief description of your message"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-cyber-secondary mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-xs font-medium text-primary-700 dark:text-primary-300 mb-1"
+                    >
                       Message *
                     </label>
                     <textarea
@@ -258,36 +318,34 @@ export const Contact: React.FC<ContactProps> = ({
                       value={formData.message}
                       onChange={handleInputChange}
                       required
-                      rows={6}
-                      className="w-full px-4 py-3 bg-background-dark border border-cyber-neon/30 rounded-lg text-white placeholder-gray-400 focus:border-cyber-neon focus:outline-none focus:ring-2 focus:ring-cyber-neon/20 transition-all resize-vertical"
-                      placeholder="Tell me about your project..."
+                      rows={4}
+                      className="w-full px-3 py-2 bg-white dark:bg-primary-900 border border-primary-300 dark:border-primary-600 rounded-lg text-primary-900 dark:text-primary-100 placeholder-primary-400 dark:placeholder-primary-500 focus:border-accent-blue-500 focus:outline-none focus:ring-1 focus:ring-accent-blue-500/20 transition-all resize-vertical text-sm"
+                      placeholder="Your message here..."
                     />
                   </div>
 
                   {/* Submit Status */}
-                  {submitStatus !== 'idle' && (
+                  {submitStatus !== "idle" && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`p-4 rounded-lg ${
-                        submitStatus === 'success'
-                          ? 'bg-green-500/20 border border-green-500/30 text-green-300'
-                          : 'bg-red-500/20 border border-red-500/30 text-red-300'
+                      className={`p-3 rounded-lg text-sm ${
+                        submitStatus === "success"
+                          ? "bg-green-500/20 border border-green-500/30 text-green-300"
+                          : "bg-red-500/20 border border-red-500/30 text-red-300"
                       }`}
                     >
-                      {submitStatus === 'success' 
-                        ? '✅ Message sent successfully! I\'ll get back to you soon.'
-                        : '❌ Failed to send message. Please try again or email me directly.'
-                      }
+                      {submitStatus === "success"
+                        ? "✅ Message sent successfully! I'll get back to you soon."
+                        : "❌ Failed to send message. Please try again or email me directly."}
                     </motion.div>
                   )}
 
-                  <motion.button
+                  <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="cyberpunk-button w-full inline-flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-                    whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                    whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                    variant="primary"
+                    className="w-full"
                   >
                     {isSubmitting ? (
                       <>
@@ -300,7 +358,7 @@ export const Contact: React.FC<ContactProps> = ({
                         Send Message
                       </>
                     )}
-                  </motion.button>
+                  </Button>
                 </form>
               </div>
             </motion.div>

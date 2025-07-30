@@ -3,7 +3,7 @@ import React from 'react';
 import { Header } from '../ui/Header';
 import { Footer } from '../ui/Footer';
 import { Contact } from '../sections/Contact';
-import { SubtleBackground } from '../effects/SubtleBackground';
+import { SubtleBackground, ParticleSystem } from '../effects';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -14,10 +14,11 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ 
   children, 
   showContact = true, 
-  backgroundVariant 
+  backgroundVariant
 }) => {
   return (
-    <div className="min-h-screen bg-background-dark text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-primary-900 text-primary-900 dark:text-primary-50 relative overflow-x-hidden transition-colors duration-300">
+      <ParticleSystem />
       <SubtleBackground variant={backgroundVariant} />
       <Header />
       

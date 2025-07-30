@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, User, Code, Briefcase } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, Home, User, Code, Briefcase, Mail } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
+import { useSmoothScroll } from '../../hooks';
 
 interface NavItem {
   id: string;
@@ -11,41 +12,75 @@ interface NavItem {
 }
 
 const navigationItems: NavItem[] = [
-  { id: 'home', label: 'Home', href: '/', icon: <Home className="w-4 h-4" /> },
-  { id: 'about', label: 'About', href: '/about', icon: <User className="w-4 h-4" /> },
-  { id: 'skills', label: 'Skills', href: '/skills', icon: <Code className="w-4 h-4" /> },
-  { id: 'projects', label: 'Projects', href: '/projects', icon: <Briefcase className="w-4 h-4" /> },
-  { id: 'experience', label: 'Experience', href: '/experience', icon: <Briefcase className="w-4 h-4" /> },
+  { id: 'home', label: 'Home', href: '#home', icon: <Home className="w-4 h-4" /> },
+  { id: 'about', label: 'About', href: '#about', icon: <User className="w-4 h-4" /> },
+  { id: 'skills', label: 'Skills', href: '#skills', icon: <Code className="w-4 h-4" /> },
+  { id: 'projects', label: 'Projects', href: '#projects', icon: <Briefcase className="w-4 h-4" /> },
+  { id: 'experience', label: 'Experience', href: '#experience', icon: <Briefcase className="w-4 h-4" /> },
+  { id: 'contact', label: 'Contact', href: '#contact', icon: <Mail className="w-4 h-4" /> },
 ];
 
 export const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
+  const [activeSection, setActiveSection] = useState('home');
+  const { scrollToElement } = useSmoothScroll();
 
-  // Get current active section based on route
-  const getActiveSection = (pathname: string) => {
-    if (pathname === '/') return 'home';
-    if (pathname === '/about') return 'about';
-    if (pathname === '/skills') return 'skills';
-    if (pathname === '/projects') return 'projects';
-    if (pathname === '/experience') return 'experience';
-    return 'home';
+  // Enhanced smooth scroll to section with animation
+  const scrollToSection = (sectionId: string) => {
+    // Use the enhanced smooth scroll hook with custom animation
+    scrollToElement(sectionId, {
+      duration: 800,
+      offset: 80,
+    });
+    
+    // Add a small delay before closing mobile menu for better UX
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 100);
   };
-
-  const activeSection = getActiveSection(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+      
+      // Update active section based on scroll position with improved detection
+      const sections = ['home', 'about', 'skills', 'projects', 'experience', 'contact'];
+      const scrollPosition = window.scrollY + 120; // Offset for header
+      
+      // Find the section that's currently in view
+      let currentSection = 'home';
+      
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const elementTop = element.offsetTop;
+          const elementHeight = element.offsetHeight;
+          
+          // Check if the section is in the viewport
+          if (scrollPosition >= elementTop && scrollPosition < elementTop + elementHeight) {
+            currentSection = sectionId;
+          }
+          
+          // Special case for the last section
+          if (sectionId === 'contact' && scrollPosition >= elementTop - 200) {
+            currentSection = sectionId;
+          }
+        }
+      }
+      
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll);
+    // Call once to set initial state
+    handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = () => {
-    setIsOpen(false);
+  const handleNavClick = (sectionId: string) => {
+    scrollToSection(sectionId);
   };
 
   const headerVariants = {
@@ -83,7 +118,7 @@ export const Header: React.FC = () => {
       initial="hidden"
       animate="visible"        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-background-dark/90 backdrop-blur-md border-b border-cyber-primary/20' 
+          ? 'bg-white/90 dark:bg-primary-900/90 backdrop-blur-md border-b border-primary-200/50 dark:border-primary-700/50' 
           : 'bg-transparent'
       }`}
     >
@@ -92,48 +127,55 @@ export const Header: React.FC = () => {
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold text-cyber-primary font-mono cursor-pointer"
+            className="text-2xl font-bold text-primary-800 dark:text-primary-100 font-mono cursor-pointer"
           >
-            <span className="text-cyber-primary" data-text="&lt;Dev/&gt;">
+            <span className="text-accent-blue-600 dark:text-accent-blue-400" data-text="&lt;Dev/&gt;">
               &lt;Dev/&gt;
             </span>
           </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => (
-              <motion.div key={item.id}>
-                <Link
-                  to={item.href}
-                  onClick={handleNavClick}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 font-mono text-sm ${
-                    activeSection === item.id
-                      ? 'text-black bg-cyber-primary border border-cyber-primary'
-                      : 'text-cyber-primary hover:text-black hover:bg-cyber-primary/80'
-                  }`}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex items-center space-x-2"
+            <div className="flex items-center space-x-6">
+              {navigationItems.map((item) => (
+                <motion.div key={item.id}>
+                  <button
+                    onClick={() => handleNavClick(item.id)}
+                    className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 font-medium text-sm ${
+                      activeSection === item.id
+                        ? 'text-white bg-accent-blue-600 border border-accent-blue-600'
+                        : 'text-primary-700 dark:text-primary-200 hover:text-accent-blue-600 dark:hover:text-accent-blue-400 hover:bg-primary-50 dark:hover:bg-primary-800/50'
+                    }`}
                   >
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </motion.div>
-                </Link>
-              </motion.div>
-            ))}
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center space-x-2"
+                    >
+                      {item.icon}
+                      <span>{item.label}</span>
+                    </motion.div>
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Theme Toggle */}
+            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-cyber-primary hover:text-black hover:bg-cyber-primary/20 transition-colors p-2 rounded-lg"
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </motion.button>
+          <div className="md:hidden flex items-center space-x-3">
+            <ThemeToggle />
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-primary-700 dark:text-primary-200 hover:text-accent-blue-600 dark:hover:text-accent-blue-400 hover:bg-primary-50 dark:hover:bg-primary-800/50 transition-colors p-2 rounded-lg"
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </motion.button>
+          </div>
         </div>
       </nav>
 
@@ -145,7 +187,7 @@ export const Header: React.FC = () => {
             initial="closed"
             animate="open"
             exit="closed"
-            className="md:hidden fixed top-full left-0 right-0 bg-background-dark/95 backdrop-blur-md border-b border-cyber-primary/20"
+            className="md:hidden fixed top-full left-0 right-0 bg-white/95 dark:bg-primary-900/95 backdrop-blur-md border-b border-primary-200/50 dark:border-primary-700/50"
           >
             <div className="container mx-auto px-6 py-6">
               <div className="space-y-4">
@@ -159,13 +201,12 @@ export const Header: React.FC = () => {
                       transition: { delay: index * 0.1 }
                     }}
                   >
-                    <Link
-                      to={item.href}
-                      onClick={handleNavClick}
-                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 font-mono ${
+                    <button
+                      onClick={() => handleNavClick(item.id)}
+                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 font-medium w-full text-left ${
                         activeSection === item.id
-                          ? 'text-black bg-cyber-primary border border-cyber-primary'
-                          : 'text-cyber-primary hover:text-black hover:bg-cyber-primary/80'
+                          ? 'text-white bg-accent-blue-600 border border-accent-blue-600'
+                          : 'text-primary-700 dark:text-primary-200 hover:text-accent-blue-600 dark:hover:text-accent-blue-400 hover:bg-primary-50 dark:hover:bg-primary-800/50'
                       }`}
                     >
                       <motion.div
@@ -176,7 +217,7 @@ export const Header: React.FC = () => {
                         {item.icon}
                         <span>{item.label}</span>
                       </motion.div>
-                    </Link>
+                    </button>
                   </motion.div>
                 ))}
               </div>
@@ -187,7 +228,7 @@ export const Header: React.FC = () => {
 
       {/* Scroll Indicator */}
       <div
-        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyber-primary to-cyber-primary transition-all duration-300"
+        className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-accent-blue-500 to-accent-purple-500 transition-all duration-300"
         style={{
           width: `${Math.min((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100, 100)}%`
         }}

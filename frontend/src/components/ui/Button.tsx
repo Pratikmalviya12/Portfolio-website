@@ -29,13 +29,13 @@ export const Button: React.FC<ButtonProps> = ({
   target,
   rel
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-mono font-medium uppercase tracking-wider transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyber-accent focus:ring-offset-2 focus:ring-offset-background-dark disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = 'inline-flex items-center justify-center font-medium tracking-wide transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-accent-blue-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-primary-800 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg';
   
   const variantClasses = {
-    primary: 'bg-cyber-primary text-black border-2 border-cyber-primary hover:bg-cyber-secondary hover:border-cyber-secondary hover:-translate-y-1',
-    secondary: 'bg-cyber-secondary text-black border-2 border-cyber-secondary hover:bg-cyber-accent hover:border-cyber-accent',
-    outline: 'border-2 border-cyber-primary text-cyber-primary bg-transparent hover:bg-cyber-primary hover:text-black',
-    ghost: 'text-cyber-primary hover:bg-cyber-primary/10 border-2 border-transparent hover:border-cyber-primary/30'
+    primary: 'bg-accent-blue-600 text-white border-2 border-accent-blue-600 hover:bg-accent-blue-700 hover:border-accent-blue-700 hover:shadow-lg hover:shadow-accent-blue-500/25 hover:-translate-y-0.5',
+    secondary: 'bg-primary-100 dark:bg-primary-700 text-primary-900 dark:text-primary-100 border-2 border-primary-200 dark:border-primary-600 hover:bg-primary-200 dark:hover:bg-primary-600 hover:border-primary-300 dark:hover:border-primary-500',
+    outline: 'border-2 border-accent-blue-600 text-accent-blue-600 dark:text-accent-blue-400 bg-transparent hover:bg-accent-blue-600 hover:text-white dark:hover:text-white',
+    ghost: 'text-primary-700 dark:text-primary-200 hover:bg-primary-100 dark:hover:bg-primary-700 border-2 border-transparent hover:border-primary-200 dark:hover:border-primary-600'
   };
 
   const sizeClasses = {
@@ -49,7 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
   const buttonContent = (
     <>
       {loading && (
-        <div className="cyber-spinner mr-2" />
+        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
       )}
       {children}
     </>

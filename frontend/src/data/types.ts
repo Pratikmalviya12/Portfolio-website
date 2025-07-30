@@ -13,6 +13,28 @@ export interface PortfolioData {
     profileImage?: string;
     resume?: string;
   };
+  sections: {
+    about: {
+      title: string;
+      subtitle: string;
+    };
+    skills: {
+      title: string;
+      subtitle: string;
+    };
+    projects: {
+      title: string;
+      subtitle: string;
+    };
+    experience: {
+      title: string;
+      subtitle: string;
+    };
+    contact: {
+      title: string;
+      subtitle: string;
+    };
+  };
   stats: {
     yearsExperience: string;
     projectsCompleted: string;

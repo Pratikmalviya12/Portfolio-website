@@ -2,120 +2,59 @@
   "experiences": [
     {
       "id": "1",
-      "company": "Tech Innovations Inc.",
-      "position": "Senior Full Stack Developer",
-      "startDate": "2023-01",
+      "company": "Deloitte USI",
+      "position": "Associate Analyst",
+      "startDate": "2023-10",
       "endDate": null,
       "current": true,
-      "location": "Remote",
-      "locationType": "remote",
-      "description": "Lead development of scalable web applications using modern technologies. Mentor junior developers and collaborate with cross-functional teams to deliver high-quality software solutions.",
-      "technologies": ["React", "TypeScript", "Node.js", "AWS", "Docker"],
-      "achievements": [
-        "Increased application performance by 40% through optimization",
-        "Led a team of 5 developers on multiple projects",
-        "Implemented CI/CD pipeline reducing deployment time by 60%",
-        "Mentored 3 junior developers, improving team productivity"
-      ],
-      "companyUrl": "https://techinnovations.example.com",
-      "companyLogo": "/images/companies/tech-innovations.jpg",
-      "responsibilities": [
-        "Architect and develop scalable web applications",
-        "Lead technical discussions and code reviews",
-        "Mentor junior developers and conduct training sessions",
-        "Collaborate with product managers and designers",
-        "Implement DevOps practices and CI/CD pipelines"
-      ],
-      "employmentType": "full-time"
-    },
-    {
-      "id": "2",
-      "company": "Digital Solutions Ltd.",
-      "position": "Full Stack Developer",
-      "startDate": "2022-01",
-      "endDate": "2022-12",
-      "current": false,
-      "location": "New York, NY",
+      "location": "Mumbai, India",
       "locationType": "hybrid",
-      "description": "Developed and maintained multiple client projects using React, Node.js, and various databases. Collaborated with designers and product managers to deliver exceptional user experiences.",
-      "technologies": ["React", "JavaScript", "Express", "MongoDB", "PostgreSQL"],
+      "description": "Associate Analyst at Deloitte USI focusing on web development, API optimization, and database performance improvements using cutting-edge technologies.",
+      "technologies": ["React", "TypeScript", "Python", "FastAPI", "SQL", "Tailwind CSS"],
       "achievements": [
-        "Delivered 15+ projects on time and within budget",
-        "Improved code quality by implementing comprehensive testing",
-        "Mentored 2 junior developers on best practices",
-        "Reduced bug reports by 50% through better testing strategies"
+        "Increased user engagement metrics by 25% by refining user interface design and functionality",
+        "Lowered development costs by 15% by enhancing coding efficiency",
+        "Enhanced API performance, resulting in a 30% reduction in system latency",
+        "Optimized user interface performance by 20% employing cutting-edge React techniques",
+        "Improved database query efficiency by 50% by restructuring SQL tables and queries",
+        "Enhanced system reliability by 40% through timely debugging and resolution of critical issues"
       ],
-      "companyUrl": "https://digitalsolutions.example.com",
-      "companyLogo": "/images/companies/digital-solutions.jpg",
+      "companyUrl": "https://www2.deloitte.com/",
+      "companyLogo": "/images/companies/deloitte.jpg",
       "responsibilities": [
-        "Develop and maintain client web applications",
-        "Collaborate with design team on UI/UX implementation",
-        "Write comprehensive tests for frontend and backend",
-        "Participate in agile development processes",
-        "Provide technical support and maintenance"
-      ],
-      "employmentType": "full-time"
-    },
-    {
-      "id": "3",
-      "company": "StartupXYZ",
-      "position": "Frontend Developer",
-      "startDate": "2021-06",
-      "endDate": "2021-12",
-      "current": false,
-      "location": "San Francisco, CA",
-      "locationType": "on-site",
-      "description": "Built responsive user interfaces and implemented interactive features for a fast-growing startup. Worked closely with UX/UI designers to create engaging user experiences.",
-      "technologies": ["React", "JavaScript", "CSS3", "HTML5", "Figma"],
-      "achievements": [
-        "Developed mobile-first responsive designs for all products",
-        "Implemented accessibility features improving WCAG compliance",
-        "Reduced application bundle size by 30% through optimization",
-        "Created reusable component library used across products"
-      ],
-      "companyUrl": "https://startupxyz.example.com",
-      "companyLogo": "/images/companies/startupxyz.jpg",
-      "responsibilities": [
-        "Build responsive and interactive user interfaces",
-        "Collaborate with UX/UI designers on design implementation",
-        "Optimize application performance and bundle size",
-        "Ensure cross-browser compatibility",
-        "Implement accessibility best practices"
+        "Develop and maintain web applications using React and TypeScript",
+        "Optimize API performance and system latency",
+        "Design and implement user interface improvements",
+        "Restructure databases for improved query efficiency",
+        "Debug and resolve critical system issues",
+        "Collaborate with cross-functional teams on project delivery"
       ],
       "employmentType": "full-time"
     }
   ],
-  "totalExperience": "3+ years",
+  "totalExperience": "1+ years",
   "skills": [
     "React",
     "TypeScript",
     "JavaScript",
-    "Node.js",
-    "Express",
-    "MongoDB",
-    "PostgreSQL",
-    "AWS",
-    "Docker",
-    "CSS3",
+    "Python",
+    "FastAPI",
+    "SQL",
+    "Tailwind CSS",
     "HTML5",
-    "Figma"
+    "CSS3",
+    "Database Optimization",
+    "API Performance",
+    "UI/UX Enhancement"
   ],
   "certifications": [
     {
       "id": "1",
-      "name": "AWS Certified Developer",
-      "issuer": "Amazon Web Services",
-      "issueDate": "2023-06",
-      "expiryDate": "2026-06",
-      "credentialId": "AWS-DEV-2023-123456"
-    },
-    {
-      "id": "2",
-      "name": "React Developer Certification",
-      "issuer": "Meta",
-      "issueDate": "2022-09",
+      "name": "Full Stack Development",
+      "issuer": "Various Online Platforms",
+      "issueDate": "2023-01",
       "expiryDate": null,
-      "credentialId": "META-REACT-2022-789012"
+      "credentialId": "FULLSTACK-2023"
     }
   ]
 }
